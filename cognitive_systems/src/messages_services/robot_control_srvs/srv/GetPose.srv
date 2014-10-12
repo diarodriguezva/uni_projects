@@ -1,0 +1,6 @@
+string effector  # name of effector ("wrist" or "gripper" or "camera")
+---
+bool success     # success of request
+float32 x
+float32 y
+float32 z

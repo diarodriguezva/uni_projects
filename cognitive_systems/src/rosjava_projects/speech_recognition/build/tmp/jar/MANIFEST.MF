@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Export-Package: org.smerobotics.speech.recognition;version="0.1.0";use
+ s:="edu.cmu.sphinx.frontend,edu.cmu.sphinx.frontend.util,edu.cmu.sphi
+ nx.instrumentation,edu.cmu.sphinx.jsgf,edu.cmu.sphinx.linguist.dictio
+ nary,edu.cmu.sphinx.recognizer,edu.cmu.sphinx.result,edu.cmu.sphinx.u
+ til,edu.cmu.sphinx.util.props,org.ros.namespace,org.ros.node,org.ros.
+ node.topic,speech_recognition_msgs"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: speech_recognition
+Bnd-LastModified: 1408535112000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_projects.speech_recog
+ nition
+Import-Package: edu.cmu.sphinx.decoder.search,edu.cmu.sphinx.frontend,
+ edu.cmu.sphinx.frontend.util,edu.cmu.sphinx.instrumentation,edu.cmu.s
+ phinx.jsgf,edu.cmu.sphinx.linguist.dictionary,edu.cmu.sphinx.recogniz
+ er,edu.cmu.sphinx.result,edu.cmu.sphinx.util,edu.cmu.sphinx.util.prop
+ s,org.ros.exception,org.ros.namespace,org.ros.node,org.ros.node.servi
+ ce,org.ros.node.topic,org.smerobotics.util;version="[0.1,1)",speech_r
+ ecognition_msgs;version="[0.1,1)",speech_recognition_srvs;version="[0
+ .1,1)"
+

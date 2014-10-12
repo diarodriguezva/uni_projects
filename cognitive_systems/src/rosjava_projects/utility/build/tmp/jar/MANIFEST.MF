@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Export-Package: argo.format;version="0.1.0";uses:="argo.jdom",argo.jdo
+ m;version="0.1.0";uses:="argo.saj",argo.saj;version="0.1.0",argo.staj
+ ;version="0.1.0";uses:="argo.saj",org.smerobotics.util;version="0.1.0
+ ";uses:="argo.jdom,argo.saj",org.smerobotics.util.msg;version="0.1.0"
+ ;uses:="org.ros.node",org.smerobotics.util.srv;version="0.1.0";uses:=
+ "org.ros.node"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: utility
+Bnd-LastModified: 1408535106000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_projects.utility
+Import-Package: org.ros.node
+

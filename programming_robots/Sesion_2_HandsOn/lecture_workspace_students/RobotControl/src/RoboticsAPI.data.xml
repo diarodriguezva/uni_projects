@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RoboticsAPIData version="3">
+    <world>
+        <gravitation x="0.0" y="0.0" z="9.81"/>
+        <frame name="ITEM_DEMO_SMEROBOTICS">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1397893933676"/>
+            </additionalInformation>
+            <redundancyData>
+                <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
+            </redundancyData>
+        </frame>
+    </world>
+    <objectTemplates>
+        <toolTemplate class="" name="NO_TOOL">
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="18.91017998164249" cogY="18.532924652777595" cogZ="52.03466487262058" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="0.13"/>
+        </toolTemplate>
+        <toolTemplate class="" name="EXERCISE_TOOL">
+            <frames>
+                <frame name="BASE">
+                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="202.0"/>
+                </frame>
+            </frames>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="15.949281102682932" cogY="16.410063509013238" cogZ="58.612526214565904" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="1.0577805939215947"/>
+        </toolTemplate>
+    </objectTemplates>
+</RoboticsAPIData>

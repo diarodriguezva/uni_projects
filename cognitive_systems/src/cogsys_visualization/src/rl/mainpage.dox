@@ -1,0 +1,70 @@
+
+namespace rl 
+{
+/** 
+\mainpage Robotics Library
+
+For first time users, please find a user-friendly introduction at http://www.roboticslibrary.org/
+
+Also, please refer to the website for <a href="http://www.roboticslibrary.org/tutorials/">tutorials</a>, a <a href="http://www.roboticslibrary.org/api">high-level API description</a> and answers on <a href="http://www.roboticslibrary.org/faq">frequently asked questions (FAQ)</a>.
+
+\section api API Overview
+
+\subsection rlmath Basic Structures, Algorithms and OS Abstraction
+
+  - rl::math - General mathematical data structures and algorithms.
+  	- Basic linear algebra data structures rl::math::Vector, rl::math::Matrix, rl::math::Array, rl::math::Transform, rl::math::Quaternion
+  	- Spatial 6-vector algebra rl::math::Spatial, rl::math::ForceVector, rl::math::PlueckerTransform
+  	- Vector-valued functions rl::math::Function, rl::math::Polynomial, rl::math::Circular
+  	- Piecewise polynomial spline function rl::math::Spline
+  	- Generic PID controller rl::math::Pid
+  	- Generic Kalman filter rl::math::Kalman
+  	
+  - rl::util - Operation system abstraction and utility functions.
+  	- Timer rl::util::Timer
+  	- Mutexes and semaphores rl::util::Mutex, rl::util::Semaphore
+  	
+  - rl::xml - XML abstraction including XPath
+
+\subsection rlhal Hardware Interfaces
+
+  - rl::hal - Hardware abstraction layer for sensors, actuators, and robots
+    - Abstract Devices rl::hal::JointPositionSensor, rl::hal::JointPositionActuator, rl::hal::Camera, rl::hal::RangeSensor
+    - Cross-platform socket implementation rl::hal::TcpSocket, rl::hal::UdpSocket, cross-platform serial communication rl::hal::Serial
+    - Robot drivers rl::hal::Coach, rl::hal::MitsubishiH7, rl::hal::StaeubliUnival
+    - Gripper drivers rl::hal::WeissWsg50, rl::hal::MitsubishiH7
+    - Laser scanner and range sensor drivers rl::hal::LeuzeRs4, rl::hal::SchmersalLss300, rl::hal::SickLms200, rl::hal::SickS300, rl::hal::SchunkFpsF5
+    - Camera driver rl::hal::Dc1394Camera
+    - Force-torque sensor driver rl::hal::Jr3
+
+\subsection rlmdl Kinematics, Dynamics and Trajectory Generation
+
+  - rl::mdl - Kinematic and dynamic spatial vector calculations, including several joint types and branched kinematics
+  	- Generic model rl::mdl::model with joint types rl::mdl::Revolute, rl::mdl::Prismatic, rl::mdl::Helical, rl::mdl::Spherical
+  	- Kinematic model specialization rl::mdl::Kinematic with forward rl::mdl::Kinematic::forwardPosition and inverse kinematics rl::mdl::Kinematic::calculateInversePosition, including Jacobian and JacobianDerivative
+  	- Dynamic model specialization rl::mdl::Dynamic with forward rl::mdl::Dynamic::forwardDynamics and inverse dynamics rl::mdl::Dynamic::inverseDynamics using spatial vector algorithms, including external forces
+  	- XML loader for kinematics and dynamics rl::mdl::XmlFactory
+  	- Trajectory generation rl::mdl::SplineTrajectory
+  	
+  - rl::kin - Denavit-Hartenberg kinematics with closed-form 6R-inverse kinematic algorithm
+
+\subsection rlsg Collision Checking, Visualization and Path Planning
+
+  - rl::sg - Scene graph abstraction for collision checking, distance queries, raycasts, and visualization
+  	- Basic scene graph hierarchy of a rl::sg::Scene containing multiple rl::sg::Model containing multiple rigid rl::sg::Body
+  	- Scene loader for xml/VRML files rl::sg::Scene::load
+  	- Abstract collision checking call rl::sg::SimpleScene::areColliding
+  	- Transparent wrappers for several collision checking libraries, Bullet Physics rl::sg::bullet::Scene, dtecta SOLID rl::sg::solid::Scene, Open Dynamics Engine rl::sg::ode::Scene, and the Proximity Query Package rl::sg::pqp::Scene
+  	- Visualization with Coin3D data structure with the VRML scene node rl::sg::so::Scene::root
+  	
+  - rl::plan - Robot path planning algorithms
+  	- Path planning problem with robot kinematic and collision scene rl::plan::Model
+  	- Sampling techniques in configuration spaces rl::plan::UniformSampler, rl::plan::GaussianSampler, rl::plan::BridgeSampler
+  	- Collision-free path verification rl::plan::SequentialVerifier, rl::plan::RecursiveVerifier
+  	- Path planning algorithms related to rapidly-exploring random trees rl::plan::Rrt, rl::plan::RrtDual, rl::plan::RrtCon, rl::plan::RrtExtCon, rl::plan::RrtConCon, rl::plan::RrtExtExt
+  	- Path planning algorithms related to probabilistic roadmaps rl::plan::Prm, rl::plan::PrmUtilityGuided
+  	- Exploring/exploiting tree path planner rl::plan::Eet
+  	- Path optimization algorithms rl::plan::SimpleOptimizer, rl::plan::AdvancedOptimizer
+  	
+*/  
+}

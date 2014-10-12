@@ -1,0 +1,29 @@
+<package>
+  <description brief="BILHR_ros">
+
+     BILHR_ros: Student's implementation
+
+  </description>
+  <author>Student's name</author>
+  <depend package = "roscpp"/>
+  <depend package = "std_msgs"/>
+  <depend package = "sensor_msgs"/>
+  <depend package = "message_filters"/>
+  <depend package = "opencv2"/>
+  <depend package = "cv_bridge"/>
+  <depend package = "image_transport"/>
+  <depend package = "common_rosdeps"/>
+  <review status="unreviewed" notes=""/>
+  <msgs>
+   msg/Bumper.msg
+   msg/TactileTouch.msg
+   msg/JointState.msg
+   msg/JointAnglesWithSpeed.msg 
+  </msgs>
+  <export>
+    <cpp cflags="-I${prefix}/msg/cpp"/>	
+  </export> 
+
+</package>
+
+

@@ -1,0 +1,82 @@
+package exercises;
+
+import java.util.Vector;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+
+import data.DataHandler;
+import data.FileLogger;
+import data.FileLogger.Fields;
+
+public class Exercise2_TaskAndJointSpace extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise2_JointAndTaskSpace app = new Exercise2_JointAndTaskSpace();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	RobotController controller;
+	LBR robot;
+	Tool tool;
+
+	@Override
+	public void run() {
+		controller = RobotController.getInstance();
+		robot = controller.getRobot();
+		tool = controller.getTool();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// load some previously teached frames
+		Frame F0 = DataHandler.loadFrame("F5");
+		Frame F1 = DataHandler.loadFrame("F6");
+		Frame F2 = DataHandler.loadFrame("F7");
+		Frame F3 = DataHandler.loadFrame("F8");
+
+		double blendingRadius = 0.1;
+
+		// create a motion batch with some movements
+		Vector<RobotMotion<?>> l = new Vector<RobotMotion<?>>();
+		l.add(BasicMotions.lin(F0).setBlendingRel(0));
+		l.add(BasicMotions.lin(F2));
+		l.add(BasicMotions.lin(F1));
+		l.add(BasicMotions.lin(F3));
+		l.add(BasicMotions.lin(F0));
+		l.add(BasicMotions.lin(F1));
+		l.add(BasicMotions.lin(F3));
+		l.add(BasicMotions.lin(F2));
+		l.add(BasicMotions.lin(F0));
+
+		RobotMotion<?>[] motionArray = l.toArray(new RobotMotion<?>[l.size()]);
+		MotionBatch mb = new MotionBatch(motionArray);
+		mb.setBlendingRel(blendingRadius);
+		mb.setJointVelocityRel(0.5);
+		mb.setJointAccelerationRel(0.5);
+
+		// create a logger to write data to a log file every 100 ms
+		FileLogger fl1 = new FileLogger(100, Fields.TIME, Fields.JOINT_POSITION, Fields.TRANSLATION);
+		fl1.setFilename("test_logging");
+
+		// use a sync move to the current position to ensure data logging starts directly before the motion
+		tool.move(BasicMotions.ptp(robot.getCurrentJointPosition()));
+
+		// start logging, execute the motion batch and stop logging
+		fl1.startLogging();
+		tool.move(mb);
+		fl1.stopLogging();
+
+		System.exit(0);
+	}
+
+}

@@ -1,0 +1,5 @@
+string name    # name of JSGF grammar to load (must have been manually stored 
+               # to speech_recognition/grammar/ or sent there using the 
+               # SetNewGrammar service)
+---
+bool success   # success of request

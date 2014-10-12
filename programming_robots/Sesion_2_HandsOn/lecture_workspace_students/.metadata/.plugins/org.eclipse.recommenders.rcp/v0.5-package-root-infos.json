@@ -1,0 +1,314 @@
+[
+  {
+    "symbolicName": "slf4j.api",
+    "version": {
+      "major": 1,
+      "minor": 7,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2450059a25c9473af1d8c987719aea7afc72ff3a",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/lecture_workspace_students/KukaJavaAPI/slf4j.api_1.7.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "slf4j.api",
+    "version": {
+      "major": 1,
+      "minor": 7,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2450059a25c9473af1d8c987719aea7afc72ff3a",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/slf4j.api_1.7.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "aae1321cab034bd0044acb8f2f910e40052a9b55",
+    "jarFileModificationDate": "2014-02-05T20:28:38+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/rhino.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "12c7d178c12e2d680588974987dd2f7931eb1564",
+    "jarFileModificationDate": "2014-02-05T20:22:48+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "slf4j.nop",
+    "version": {
+      "major": 1,
+      "minor": 7,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5c24adc56a01171748e2f11b08a32a5590d0e1c8",
+    "jarFileModificationDate": "2014-06-27T11:55:03+02:00",
+    "location": "/home/seid_da/lecture_workspace_students/KukaJavaAPI/slf4j-nop-1.7.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.kuka.roboticsAPI",
+    "version": {
+      "major": 1,
+      "minor": 11,
+      "micro": 2,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "4794ed45d4a4728a4ce1a4377469438f68f06242",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/lecture_workspace_students/KukaJavaAPI/roboticsAPI.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "91a2596df76799b03e96a7f51d47849f651fc7e3",
+    "jarFileModificationDate": "2014-02-05T20:31:57+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/gnome-java-bridge.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.kuka.applicationServer.publishing",
+    "version": {
+      "major": 1,
+      "minor": 1,
+      "micro": 0,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "511867ac3c0b4d1d6f11b1ccea9a030774c8ab7e",
+    "jarFileModificationDate": "2014-06-25T09:43:55+02:00",
+    "location": "/home/seid_da/lecture_workspace_students/KukaJavaAPI/applicationServer.publishing.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "slf4j.nop",
+    "version": {
+      "major": 1,
+      "minor": 7,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5c24adc56a01171748e2f11b08a32a5590d0e1c8",
+    "jarFileModificationDate": "2014-06-27T11:55:03+02:00",
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/slf4j-nop-1.7.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.kuka.common.utilities",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 4,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "86e81c7d10cb67e7a935a6f6a11402d187219f5c",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/common.utilities.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "537bde7d1a6e3eba77db9786deeb0ced5532785d",
+    "jarFileModificationDate": "2014-02-05T20:28:38+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "abab0c36beb979a227d65bea97063fe3e9d6ed62",
+    "jarFileModificationDate": "2014-02-05T20:22:29+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.kuka.common.utilities",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 4,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "86e81c7d10cb67e7a935a6f6a11402d187219f5c",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/lecture_workspace_students/KukaJavaAPI/common.utilities.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.kuka.roboticsAPI",
+    "version": {
+      "major": 1,
+      "minor": 11,
+      "micro": 2,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "4794ed45d4a4728a4ce1a4377469438f68f06242",
+    "jarFileModificationDate": "2014-06-25T09:43:56+02:00",
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/roboticsAPI.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "junit",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4e031bb61df09069aeb2bffb4019e7a5034a4ee0",
+    "jarFileModificationDate": "2013-05-17T18:05:12+02:00",
+    "location": "/home/seid_da/opt/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "20255e66090e22059583cf1a8af30589ecb66783",
+    "jarFileModificationDate": "2014-02-05T20:28:38+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7e5455f0b8833dfd36cfc84ca73cd87bc40fb90a",
+    "jarFileModificationDate": "2014-02-05T20:22:58+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "97f63dc8040614453d8af29bd816ed285fdd03f1",
+    "jarFileModificationDate": "2014-02-05T20:24:12+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.hamcrest.core",
+    "version": {
+      "major": 1,
+      "minor": 3,
+      "micro": 0,
+      "qualifier": "v201303031735"
+    },
+    "jarFileFingerprint": "5ed9fe32ab1d2b18bec7cac0a044090100f327ba",
+    "jarFileModificationDate": "2014-02-24T11:58:53+01:00",
+    "location": "/home/seid_da/opt/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a3525476836db3c94ac753a0d816aba792f9ea0f",
+    "jarFileModificationDate": "2014-02-05T20:24:42+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c1c1572ed745b547222135d9792b617f08e89de9",
+    "jarFileModificationDate": "2014-02-05T20:22:41+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2e8604701c3e2c3047d4647d3cda22ffc3938dbb",
+    "jarFileModificationDate": "2014-02-05T20:22:55+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1456661087d71d83af59cc671301ad6f5c6ca472",
+    "jarFileModificationDate": "2014-02-05T20:28:38+01:00",
+    "location": "/usr/lib/jvm/java-1.7.0-openjdk-1.7.0/jre/lib/rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.kuka.applicationServer.publishing",
+    "version": {
+      "major": 1,
+      "minor": 1,
+      "micro": 0,
+      "qualifier": "7"
+    },
+    "jarFileFingerprint": "511867ac3c0b4d1d6f11b1ccea9a030774c8ab7e",
+    "jarFileModificationDate": "2014-06-25T09:43:55+02:00",
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/applicationServer.publishing.jar",
+    "javaRuntime": false
+  }
+]

@@ -1,0 +1,27 @@
+package exercises;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+
+public class Exercise1a_TeachIn extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise1a_TeachIn app = new Exercise1a_TeachIn();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// move to a crane position
+		RobotController.getInstance().goFront();
+
+		// start pseudo grav comp
+		RobotController.getInstance().gravCompImpedance();
+	}
+}

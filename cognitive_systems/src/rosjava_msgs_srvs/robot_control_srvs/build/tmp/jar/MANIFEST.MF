@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Export-Package: robot_control_srvs;version="0.1.0";uses:="org.ros.inte
+ rnal.message"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: robot_control_srvs
+Bnd-LastModified: 1408535076000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_msgs_srvs.robot_contr
+ ol_srvs
+Import-Package: org.ros.internal.message
+

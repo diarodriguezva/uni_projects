@@ -1,0 +1,3 @@
+<launch>
+	<node name="gripperbot_control" pkg="robot_control_viz" type="robot_control_viz_node" args="0 gripperbot_control" output="screen" />
+</launch>

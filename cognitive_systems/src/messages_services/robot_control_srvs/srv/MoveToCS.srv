@@ -1,0 +1,7 @@
+string effector  # name of effector ("wrist" or "gripper" or "camera")
+float32 x        # x coordinate of position
+float32 y        # y coordinate of position
+float32 z        # z coordinate of position
+---
+bool success     # success of request
+

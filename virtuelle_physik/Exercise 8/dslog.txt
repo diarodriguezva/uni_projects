@@ -1,0 +1,9 @@
+Log-file of program C:\Users\Diego\Documents\Virtuelle Physik\Exercise 8\dymosim.exe
+(generated: Sun Feb 16 13:19:12 2014)
+
+dymosim.exe started
+Runtime license not available, trying to check out the Dymola Standard license instead.
+
+License from "c:/users/diego/appdata/roaming/dynasim/dymola.lic" could not be checked out. 
+
+You can specify the location of the license file through the environment variable "DYMOLA_RUNTIME_LICENSE"

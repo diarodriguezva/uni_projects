@@ -1,0 +1,322 @@
+package robot;
+
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.positionHold;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptpHome;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.applicationModel.IApplicationData;
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.conditionModel.ICondition;
+import com.kuka.roboticsAPI.conditionModel.JointTorqueCondition;
+import com.kuka.roboticsAPI.controllerModel.sunrise.ParameterConfiguration;
+import com.kuka.roboticsAPI.controllerModel.sunrise.SunriseController;
+import com.kuka.roboticsAPI.deviceModel.JointEnum;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.JointImpedanceControlMode;
+
+public class RobotController {
+	private static RobotController instance = null;
+	private static ExecutionController execControl = null;
+
+	@SuppressWarnings("unused")
+	private static ControlGUI controlGui = null;
+	private static InfoGUI infoGui = null;
+
+	private LBR robot;
+	private Tool tool;
+	private SunriseController cabinet;
+	private RoboticsAPIApplication app;
+
+	/**
+	 * Maximum joint value allowed. Absolut values, movement possible in [-value, value].
+	 */
+	public static final double[] JOINT_LIMITS = { Math.toRadians(170), Math.toRadians(120), Math.toRadians(170),
+			Math.toRadians(120), Math.toRadians(170), Math.toRadians(120), Math.toRadians(175) };
+
+	/**
+	 * Maximum allowed joint torques.
+	 */
+	public static final double[] MAX_JOINT_TORQUES = { 176, 176, 110, 110, 110, 40, 40 };
+
+	/**
+	 * Maximum Torques/Forces at the tcp: TX, TY, TZ, FX, FY, FZ.
+	 */
+	public static final double[] TCP_FORCES = { 30, 30, 30, 100, 100, 100 };
+
+	/**
+	 * Initializes the robot application. This function has to be called from the static main function. Further, the
+	 * class containing the main function must be derived from RoboticsAPIApplication.
+	 */
+	public static void initialize(RoboticsAPIApplication app) {
+		instance = new RobotController(app);
+
+		execControl = new ExecutionController();
+		controlGui = new ControlGUI(execControl);
+	}
+
+	public static void initializeAndRun(RoboticsAPIApplication app) {
+		initialize(app);
+		app.runApplication();
+	}
+
+	/**
+	 * Creates a GUI that displays joint torques, tcp torques / forces and the tcp position
+	 */
+	public static void createInfoGui() {
+		if (infoGui == null) {
+			infoGui = new InfoGUI();
+		}
+	}
+
+	/**
+	 * Returns the robot singleton.
+	 */
+	public static RobotController getInstance() {
+		// if(null==instance){
+		// throw new Exception("IiwaRoboControllert instance not initialized! call initialize(...) in your main!");
+		// }
+		if (instance == null) {
+			System.err.println("RobotController not initialized! call RobotController.initialize(...) in your main!");
+			System.exit(1);
+		}
+		return instance;
+	}
+
+	public RoboticsAPIApplication getRobotApp() {
+		return app;
+	}
+
+	/**
+	 * Get the robot object.
+	 * 
+	 * @return robot reference
+	 */
+	public LBR getRobot() {
+		return robot;
+	}
+
+	/**
+	 * Get the tool object.
+	 * 
+	 * @return tool reference
+	 */
+	public Tool getTool() {
+		return tool;
+	}
+
+	/**
+	 * Get the Sunrise controller.
+	 * 
+	 * @return cabinet reference
+	 */
+	public SunriseController getCabinet() {
+		return cabinet;
+	}
+
+	public IApplicationData getApplicationData() {
+		return app.getApplicationData();
+	}
+
+	/**
+	 * Get the Frame for the current tcp position.
+	 * 
+	 * @return Frame containing the translation/rotation of the tcp
+	 */
+	public Frame getTcpFrame() {
+		return robot.getCurrentCartesianPosition(tool.getDefaultMotionFrame());
+	}
+
+	private RobotController(RoboticsAPIApplication app) {
+		this.app = app;
+		this.cabinet = (SunriseController) app.getController("KUKA_Sunrise_Cabinet_1");
+		this.robot = (LBR) app.getRobot(cabinet, "LBR_iiwa_7_R800_1");
+
+		// tool = getApplicationData().createFromTemplate("NO_TOOL");
+		tool = getApplicationData().createFromTemplate("EXERCISE_TOOL");
+		tool.attachTo(robot.getFlange());
+		tool.setDefaultMotionFrame(tool.getFrame("/BASE"));
+
+		// increase timeout for joint brakes for position control...
+		ParameterConfiguration.Current.addParameter("JntStateSpaceCtrl@LBR_iiwa_7_R800_1", "MAINTAINTIMEOUT", 30.0);
+	}
+
+	/**
+	 * Start a pseudo grav comp with joint limit avoidance.
+	 */
+	@SuppressWarnings("unused")
+	private void gravCompImpedanceWithLimitAvoidance() {
+		double limitFactor = 0.92;
+		double highStiffness = 30;
+		double lowStiffness = 0;
+
+		double damping = 0.1;
+		double maxJointDelta = Math.PI;
+
+		// int intervall = 10;
+
+		JointPosition currentPosition = robot.getCurrentJointPosition();
+
+		// configure joint impedance controller
+		JointImpedanceControlMode jointImpMode = new JointImpedanceControlMode(lowStiffness, lowStiffness,
+				lowStiffness, lowStiffness, lowStiffness, lowStiffness, lowStiffness);
+		jointImpMode.setDamping(damping, damping, damping, damping, damping, damping, damping);
+		jointImpMode.setMaxJointDeltas(maxJointDelta, maxJointDelta, maxJointDelta, maxJointDelta, maxJointDelta,
+				maxJointDelta, maxJointDelta);
+
+		double[] curJointVals;
+		double[] stiffness = jointImpMode.getJointStiffness();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+
+		// long now = System.currentTimeMillis();
+		// long next = now + intervall;
+		// boolean notPaused = true;
+
+		// motion containers
+		positionHold(jointImpMode, 10, TimeUnit.MILLISECONDS);
+		IMotionContainer activeMove = tool.moveAsync(ptp(currentPosition).setMode(jointImpMode));
+		IMotionContainer nextMove = null;
+		boolean activeMotions = true;
+		while (activeMotions) {
+			// now = System.currentTimeMillis();
+			// next += intervall;
+
+			currentPosition = robot.getCurrentJointPosition();
+			curJointVals = currentPosition.get();
+
+			stiffness = jointImpMode.getJointStiffness();
+			for (int i = 0; i < 7; i++) {
+				if (Math.abs(curJointVals[i]) > limitFactor * JOINT_LIMITS[i]) {
+					// if (stiffness[i] == lowStiffness)
+					// if (i == 6)
+					// System.out.println("Joint " + (i + 1) + " exceeding limit " + limitFactor * JOINT_LIMITS[i]
+					// + " with " + curJointVals[i]);
+					stiffness[i] = highStiffness;
+					if (curJointVals[i] > 0) {
+						currentPosition.set(i, 0.99 * limitFactor * JOINT_LIMITS[i]);
+					} else {
+						currentPosition.set(i, -0.99 * limitFactor * JOINT_LIMITS[i]);
+					}
+				} else {
+					// System.out.println("Joint " + (i + 1) + " back to normal with " + curJointVals[i]);
+					stiffness[i] = lowStiffness;
+				}
+			}
+			jointImpMode.setStiffness(stiffness);
+			// System.out.println(Arrays.toString(stiffness));
+
+			// nextMove = tool.moveAsync(positionHold(jointImpMode, 2 * intervall, TimeUnit.MILLISECONDS));
+			if (!cabinet.getExecutionService().isPaused()) {
+				nextMove = tool.moveAsync(ptp(currentPosition).setMode(jointImpMode));
+			}
+			activeMove.await();
+			// activeMove.cancel();
+			activeMove = nextMove;
+
+			System.out.println(sdf.format(Calendar.getInstance().getTime()));
+			// ThreadUtil.milliSleep(next - now);
+
+			if (cabinet.getExecutionService().getActiveMotionContainerCount() == 0) {
+				activeMotions = false;
+			}
+		}
+		System.out.println("GravComp ended");
+	}
+
+	/**
+	 * Start a pseudo grav comp using the robotics API positionHold command. No joint limit avoidance.
+	 */
+	public void gravCompImpedance() {
+		double stiffness = 0;
+		double damping = 0.1;
+		double maxJointDelta = Math.PI;
+
+		// configure joint impedance controller
+		JointImpedanceControlMode jointImpMode = new JointImpedanceControlMode(stiffness, stiffness, stiffness,
+				stiffness, stiffness, stiffness, stiffness);
+		jointImpMode.setDamping(damping, damping, damping, damping, damping, damping, damping);
+		jointImpMode.setMaxJointDeltas(maxJointDelta, maxJointDelta, maxJointDelta, maxJointDelta, maxJointDelta,
+				maxJointDelta, maxJointDelta);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+
+		// start positionHold
+		tool.moveAsync(positionHold(jointImpMode, 1000, TimeUnit.SECONDS));
+
+		int cd = 0;
+		while (true) {
+			if (cabinet.getExecutionService().isPaused()) {
+				cabinet.getExecutionService().cancelAll();
+				System.out.println("GravComp ended");
+				return;
+			}
+
+			ThreadUtil.milliSleep(100);
+
+			if (cd == 10) {
+				cd = 0;
+				System.out.println(sdf.format(Calendar.getInstance().getTime()));
+			}
+			cd++;
+		}
+	}
+
+	/**
+	 * Create a condition to detect collisions based on joint torques.
+	 * 
+	 * @param threshold
+	 *            Percentage of the maximum joint torque of each joint before the condition fires.
+	 * @return Condition object to be used as break condition in movements.
+	 */
+	public static ICondition createJointTorqueCondition(double threshold) {
+		double maxTrq_J1 = MAX_JOINT_TORQUES[0];
+		double maxTrq_J2 = MAX_JOINT_TORQUES[1];
+		double maxTrq_J3 = MAX_JOINT_TORQUES[2];
+		double maxTrq_J4 = MAX_JOINT_TORQUES[3];
+		double maxTrq_J5 = MAX_JOINT_TORQUES[4] * 2.0; // because it doesn't work properly...
+		// double maxTrq_J5 = MAX_JOINT_TORQUES[4];
+		double maxTrq_J6 = MAX_JOINT_TORQUES[5];
+		double maxTrq_J7 = MAX_JOINT_TORQUES[6];
+
+		JointTorqueCondition cond_J1 = new JointTorqueCondition(JointEnum.J1, -threshold * maxTrq_J1, threshold
+				* maxTrq_J1);
+		JointTorqueCondition cond_J2 = new JointTorqueCondition(JointEnum.J2, -threshold * maxTrq_J2, threshold
+				* maxTrq_J2);
+		JointTorqueCondition cond_J3 = new JointTorqueCondition(JointEnum.J3, -threshold * maxTrq_J3, threshold
+				* maxTrq_J3);
+		JointTorqueCondition cond_J4 = new JointTorqueCondition(JointEnum.J4, -threshold * maxTrq_J4, threshold
+				* maxTrq_J4);
+		JointTorqueCondition cond_J5 = new JointTorqueCondition(JointEnum.J5, -threshold * maxTrq_J5, threshold
+				* maxTrq_J5);
+		JointTorqueCondition cond_J6 = new JointTorqueCondition(JointEnum.J6, -threshold * maxTrq_J6, threshold
+				* maxTrq_J6);
+		JointTorqueCondition cond_J7 = new JointTorqueCondition(JointEnum.J7, -threshold * maxTrq_J7, threshold
+				* maxTrq_J7);
+
+		return cond_J1.or(cond_J2, cond_J3, cond_J4, cond_J5, cond_J6, cond_J7);
+	}
+
+	/**
+	 * Move the robot to the home posture with 0.3 joint velocity.
+	 */
+	public void goHome() {
+		robot.move(ptpHome().setJointVelocityRel(0.3).setJointAccelerationRel(0.3));
+	}
+
+	/**
+	 * Move the robot into a crane posture with 0.3 joint velocity.
+	 */
+	public void goFront() {
+		robot.move(ptp(new JointPosition(0, Math.toRadians(30), 0, Math.toRadians(-60), 0, Math.toRadians(90), 0))
+				.setJointVelocityRel(0.3).setJointAccelerationRel(0.3));
+	}
+}

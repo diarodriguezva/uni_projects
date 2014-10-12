@@ -1,0 +1,100 @@
+#VRML V2.0 utf8
+Transform {
+	children [
+		DEF link0 Transform {
+			children [
+				Inline {
+					url "link0.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link1 Transform {
+			children [
+				Inline {
+					url "link1.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link2a Transform {
+			translation -0.02427 0 0.1402
+			children [
+				Inline {
+					url "link2a.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link2b Transform {
+			translation 0.02427 0 0.1282
+			children [
+				Inline {
+					url "link2b.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link3 Transform {
+			translation -0.02427 0 0.3302
+			children [
+				Inline {
+					url "link3.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link4a Transform {
+			translation 0.05427 0 0.3532
+			children [
+				Inline {
+					url "link4a.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link4b Transform {
+			translation 0.05427 0 0.3782
+			children [
+				Inline {
+					url "link4b.wrl"
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+		DEF link5 Transform {
+			translation 0.24427 0 0.3532
+			children [
+				Inline {
+					url "link5.wrl"
+				}
+				Transform {		
+					translation 0.031 0 0.0125
+					children [
+						Inline {
+							url "webcam_with_adapter.wrl"
+						}
+					]
+				}
+				#Inline {
+					#url "../frame.wrl"
+				#}
+			]
+		}
+	]
+}
+

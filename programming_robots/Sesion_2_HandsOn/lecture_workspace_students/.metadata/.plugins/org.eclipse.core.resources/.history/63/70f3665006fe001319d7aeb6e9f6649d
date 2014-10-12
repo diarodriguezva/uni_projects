@@ -1,0 +1,92 @@
+package exercises;
+
+import robot.RobotController;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.math.Transformation;
+import com.kuka.roboticsAPI.geometricModel.math.Vector;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
+
+public class Exercise5_CollaborationTask extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise5_CollaborationTask app = new Exercise5_CollaborationTask();
+		RobotController.initialize(app);
+		RobotController.createInfoGui();
+
+		app.run();
+	}
+
+	private RobotController robotControl = null;
+	private LBR robot = null;
+	private ObjectFrame tool = null;
+
+	private CartesianImpedanceControlMode imp;
+
+	private double moveDistance = 50;
+	private double forceOffset = 8;
+	private double forceThresholdX = forceOffset;
+	private double forceThresholdY = forceOffset;
+	private double forceThresholdZ = forceOffset;
+
+	@Override
+	public void run() {
+		robotControl = RobotController.getInstance();
+		robot = robotControl.getRobot();
+		tool = robotControl.getTool().getDefaultMotionFrame();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// move to start position [perviously teached] and define starting direction
+		Frame currentFrame = new Frame(Transformation.ofDeg(650, 0, 80, -180, 0, 180));
+		tool.move(BasicMotions.lin(currentFrame).setCartVelocity(150));
+
+		// configure impedance control mode
+		imp = new CartesianImpedanceControlMode();
+		imp.parametrize(CartDOF.TRANSL).setStiffness(1500);
+		imp.parametrize(CartDOF.ROT).setStiffness(300);
+
+		imp.setNullSpaceDamping(0.3);
+		imp.setNullSpaceStiffness(0);
+
+		// start first movement
+		// IMotionContainer activeMove = tool.moveAsync(BasicMotions.ptp(currentPosition).setMode(imp));
+		// IMotionContainer nextMove = null;
+
+		Vector force;
+		while (true) {
+			ThreadUtil.milliSleep(100);
+			force = robot.getExternalForceTorque(tool).getForce();
+			// forceThresholdX = force.getX() + forceOffset;
+			// forceThresholdY = force.getY() + forceOffset;
+			// forceThresholdZ = force.getZ() + forceOffset;
+
+			try {
+				if (Math.abs(force.getX()) > forceThresholdX) {
+					currentFrame = new Frame(Transformation.ofTranslation(-Math.signum(force.getX()) * moveDistance, 0,
+							0).compose(currentFrame.getTransformationProvider().getTransformation()));
+					tool.move(BasicMotions.lin(currentFrame));
+
+				} else if (Math.abs(force.getY()) > forceThresholdY) {
+					currentFrame = new Frame(Transformation.ofTranslation(0, Math.signum(force.getY()) * moveDistance,
+							0).compose(currentFrame.getTransformationProvider().getTransformation()));
+				}
+				// else if (Math.abs(force.getZ()) > forceThresholdZ) {
+				// currentFrame = new Frame(Transformation.ofTranslation(0, 0,
+				// Math.signum(force.getZ()) * moveDistance).compose(
+				// currentFrame.getTransformationProvider().getTransformation()));
+				// }
+				tool.move(BasicMotions.lin(currentFrame).setMode(imp));
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		}
+	}
+}

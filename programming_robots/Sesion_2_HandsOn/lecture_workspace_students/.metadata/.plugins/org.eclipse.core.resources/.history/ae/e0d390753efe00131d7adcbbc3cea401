@@ -1,0 +1,144 @@
+package robot;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+import data.DataHandler;
+
+public class ControlGUI {
+
+	private int xPosition = 200;
+	private int yPosition = 200;
+
+	private ExecutionController execControl;
+
+	private JTextField jointposField = new JTextField();
+	private JTextField frameField = new JTextField();
+
+	public String getFrameName() {
+		return frameField.getText();
+	}
+
+	public String getJointPosName() {
+		return jointposField.getText();
+	}
+
+	public void setNextFrameName(String name) {
+		frameField.setText(name);
+	}
+
+	public void setNextJointPosName(String name) {
+		jointposField.setText(name);
+	}
+
+	enum ButtonCommands {
+		Pause, Resume, Abort, Reset, GravComp, GoHome, GoFront, SaveFrame, SaveJointPos;
+	}
+
+	ActionListener buttonListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(e.getActionCommand().toString());
+			if (e.getActionCommand().equals(ButtonCommands.Pause.toString())) {
+				execControl.pause();
+			} else if (e.getActionCommand().equals(ButtonCommands.Resume.toString())) {
+				execControl.resume();
+			} else if (e.getActionCommand().equals(ButtonCommands.Abort.toString())) {
+				execControl.abort();
+			} else if (e.getActionCommand().equals(ButtonCommands.GravComp.toString())) {
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// execControl.gravcomp();
+						RobotController.getInstance().gravCompImpedance();
+					}
+				});
+				t.start();
+			} else if (e.getActionCommand().equals(ButtonCommands.GoHome.toString())) {
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						RobotController.getInstance().goHome();
+					}
+				});
+				t.start();
+			} else if (e.getActionCommand().equals(ButtonCommands.GoFront.toString())) {
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						RobotController.getInstance().goFront();
+					}
+				});
+				t.start();
+			} else if (e.getActionCommand().equals(ButtonCommands.SaveFrame.toString())) {
+				DataHandler.saveFrame();
+			} else if (e.getActionCommand().equals(ButtonCommands.SaveJointPos.toString())) {
+				DataHandler.saveJointPosition();
+			} else {
+				System.err.println("Button not yet implemented");
+			}
+		}
+	};
+
+	public ControlGUI(ExecutionController execControl) {
+		this.execControl = execControl;
+
+		JFrame guiFrame = new JFrame();
+		guiFrame.setLayout(new GridLayout(5, 2));
+
+		// make sure the program exits when the frame closes
+		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		guiFrame.setTitle("RobotControl");
+		guiFrame.setSize(300, 200);
+
+		// This will center the JFrame in the middle of the screen
+		guiFrame.setLocationRelativeTo(null);
+		guiFrame.setLocation(xPosition, yPosition);
+
+		JButton pauseButton = new JButton(ButtonCommands.Pause.toString());
+		pauseButton.addActionListener(buttonListener);
+		guiFrame.add(pauseButton);
+
+		JButton resumeButton = new JButton(ButtonCommands.Resume.toString());
+		resumeButton.addActionListener(buttonListener);
+		guiFrame.add(resumeButton);
+
+		JButton abortButton = new JButton(ButtonCommands.Abort.toString());
+		abortButton.addActionListener(buttonListener);
+		guiFrame.add(abortButton);
+
+		JButton gravcompButton = new JButton(ButtonCommands.GravComp.toString());
+		gravcompButton.addActionListener(buttonListener);
+		guiFrame.add(gravcompButton);
+
+		JButton gohomeButton = new JButton(ButtonCommands.GoHome.toString());
+		gohomeButton.addActionListener(buttonListener);
+		guiFrame.add(gohomeButton);
+
+		JButton gofrontButton = new JButton(ButtonCommands.GoFront.toString());
+		gofrontButton.addActionListener(buttonListener);
+		guiFrame.add(gofrontButton);
+
+		JButton touchupFrameButton = new JButton(ButtonCommands.SaveFrame.toString());
+		touchupFrameButton.addActionListener(buttonListener);
+		guiFrame.add(touchupFrameButton);
+
+		JButton touchupJointPosButton = new JButton(ButtonCommands.SaveJointPos.toString());
+		touchupJointPosButton.addActionListener(buttonListener);
+		guiFrame.add(touchupJointPosButton);
+
+		this.setNextFrameName(DataHandler.getNextFrameName());
+		guiFrame.add(frameField);
+		this.setNextJointPosName(DataHandler.getNextJointPosName());
+		guiFrame.add(jointposField);
+
+		// make sure the JFrame is visible
+		guiFrame.setVisible(true);
+	}
+
+}

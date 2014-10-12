@@ -1,0 +1,14 @@
+package exercises;
+
+import robot.ControlGUI;
+
+public class Testbla {
+
+	public static void main() {
+		ControlGUI cg = new ControlGUI(null);
+
+		while (true)
+			;
+	}
+
+}

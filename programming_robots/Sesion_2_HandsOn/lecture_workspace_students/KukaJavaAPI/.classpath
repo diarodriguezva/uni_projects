@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="applicationServer.publishing.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/KukaJavaAPI/applicationServer.publishing-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="common.utilities.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/KukaJavaAPI/common.utilities-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="roboticsAPI.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/KukaJavaAPI/roboticsAPI-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="slf4j.api_1.7.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="slf4j-nop-1.7.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,317 @@
+package exercises;
+
+import robot.RobotController;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.conditionModel.ForceCondition;
+import com.kuka.roboticsAPI.conditionModel.ICondition;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.geometricModel.math.Transformation;
+import com.kuka.roboticsAPI.geometricModel.math.Vector;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
+
+import data.DataHandler;
+
+public class Exercise4b_Wireloop_with_Movement extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise4b_Wireloop_with_Movement app = new Exercise4b_Wireloop_with_Movement();
+		RobotController.initialize(app);
+		RobotController.createInfoGui();
+
+		app.run();
+	}
+
+	private enum Direction {
+		POSITIVE, NEGATIVE;
+
+		public Direction invert() {
+			return (this.name() == Direction.POSITIVE.name()) ? Direction.NEGATIVE : Direction.POSITIVE;
+		}
+
+		public int val() {
+			return (this.name() == Direction.POSITIVE.name()) ? 1 : -1;
+		}
+	}
+
+	private double lowCartVel = 50;
+	private double highCartVel = 125;
+
+	private Direction xDirection;
+	private Direction yCurveDirection;
+
+	private RobotController robotControl = null;
+	private LBR robot = null;
+	private ObjectFrame tool = null;
+
+	private Frame wireloopStart = null;
+
+	private CartesianImpedanceControlMode imp;
+
+	private java.util.Vector<RobotMotion<?>> collisionFreeMovements = new java.util.Vector<RobotMotion<?>>();
+
+	@Override
+	public void run() {
+		robotControl = RobotController.getInstance();
+		robot = robotControl.getRobot();
+		tool = robotControl.getTool().getDefaultMotionFrame();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// load start position [perviously teached] and define starting direction
+		wireloopStart = DataHandler.loadFrame("F9").setBetaRad(0).setGammaRad(Math.PI);
+		xDirection = Direction.NEGATIVE;
+
+		// configure impedance control mode
+		imp = new CartesianImpedanceControlMode();
+		imp.parametrize(CartDOF.TRANSL).setStiffness(1500);
+		imp.parametrize(CartDOF.ROT).setStiffness(300);
+
+		// for safety, move up
+		try {
+			moveUp();
+		} catch (Exception e) {
+			robotControl.goFront();
+		}
+
+		// move to start position in two steps: first to the position 5 cm above the start and then vertical
+		Frame aboveWireloopStart = new Frame(Transformation.ofTranslation(0, 0, 50).compose(
+				wireloopStart.getTransformationProvider().getTransformation()));
+		tool.moveAsync((BasicMotions.ptp(aboveWireloopStart).setJointVelocityRel(0.6).setBlendingCart(10)));
+		tool.move(BasicMotions.lin(wireloopStart).setCartVelocity(150));
+
+		// correction for second robot
+		// tool.move(BasicMotions.linRel(0, 0, -7, robot.getRootFrame()).setCartVelocity(150));
+		tool.move(BasicMotions.linRel(0, 0, 3, robot.getRootFrame()).setCartVelocity(150));
+
+		// move through a wireloop by executing two operations:
+		// 1. move in X direction of the tool until contact detected
+		// 2. depending on the measured forces during contact move a 90 deg curve either to the left or to the right
+		int counter = 0;
+		while (true) {
+			moveXuntilContact();
+			moveYcurve();
+			if (++counter == 4) {
+				break;
+			}
+		}
+
+		collisionFreeMovement();
+	}
+
+	private void collisionFreeMovement() {
+
+		// move to start position in two steps: first to the position 5 cm above the start and then vertical
+		moveUp();
+		Frame aboveWireloopStart = new Frame(Transformation.ofTranslation(0, 0, 50).compose(
+				wireloopStart.getTransformationProvider().getTransformation()));
+		tool.moveAsync((BasicMotions.ptp(aboveWireloopStart).setJointVelocityRel(0.6).setBlendingCart(10)));
+		tool.move(BasicMotions.lin(wireloopStart).setCartVelocity(150));
+
+		// create a motion batch movement
+		RobotMotion<?>[] motionArray = collisionFreeMovements
+				.toArray(new RobotMotion<?>[collisionFreeMovements.size()]);
+		MotionBatch mb = new MotionBatch(motionArray);
+		mb.setBlendingRel(0.05);
+		mb.setJointVelocityRel(0.3);
+		mb.setMode(imp);
+		mb.breakWhen(ForceCondition.createSpatialForceCondition(null, 20));
+
+		System.out.println("Executing collision free motion batch now");
+		tool.move(mb);
+	}
+
+	private void moveUp() {
+		tool.move(BasicMotions.linRel(0, 0, 40, robot.getRootFrame()).setCartVelocity(150));
+	}
+
+	private void moveDown() {
+		tool.move(BasicMotions.linRel(0, 0, -40, robot.getRootFrame()).setCartVelocity(150));
+	}
+
+	private void centerTool() {
+		// System.out.println("started center tool");
+
+		// move up
+		// moveUp();
+
+		// create force condition for y
+		double yForce = Math.abs(robot.getExternalForceTorque(tool).getForce().getY());
+		ICondition cond = ForceCondition.createNormalForceCondition(null, CoordinateAxis.Y, yForce + 6);
+
+		// first side
+		tool.move(BasicMotions.linRel(0, 40, 0).setCartVelocity(lowCartVel).setCartAcceleration(75).breakWhen(cond)
+				.setMode(imp));
+		tool.move((BasicMotions.linRel(0, -10, 0, tool).setCartVelocity(lowCartVel)));
+		Frame firstHit = robotControl.getTcpFrame();
+
+		// second side
+		tool.move(BasicMotions.linRel(0, -50, 0).setCartVelocity(lowCartVel).setCartAcceleration(75).breakWhen(cond)
+				.setMode(imp));
+		tool.move((BasicMotions.linRel(0, 10, 0).setCartVelocity(lowCartVel)));
+		Frame secondHit = robotControl.getTcpFrame();
+
+		Frame middle = new Frame(Transformation.ofTranslation((secondHit.getX() + firstHit.getX()) / 2,
+				(secondHit.getY() + firstHit.getY()) / 2, (secondHit.getZ() + firstHit.getZ()) / 2))
+				.orientateLike(secondHit);
+		middle.setAlphaRad(firstHit.getAlphaRad()).setBetaRad(0).setGammaRad(Math.PI);
+		tool.moveAsync(BasicMotions.lin(middle).setCartVelocity(lowCartVel).breakWhen(cond));
+
+		collisionFreeMovements.add(BasicMotions.lin(middle));
+
+		// move down
+		// moveDown();
+
+		// System.out.println("finished center tool");
+	}
+
+	private void moveYcurve() {
+		System.out.println("### -- moveZcurve --- " + " direction = " + yCurveDirection.name());
+
+		// move up, just for testing
+		// moveUp();
+
+		// create force condition [just in case sth goes wrong]
+		Vector force = robot.getExternalForceTorque(tool).getForce();
+		ICondition cond = ForceCondition.createSpatialForceCondition(tool, 30);
+		System.out.println("force: " + force);
+
+		// get the current tcp position
+		Frame currentFrame = robotControl.getTcpFrame();
+		double signY = yCurveDirection.val();
+		double signX = xDirection.val();
+
+		// create a transformation to the end of the curve and to an auxiliary point for the circ movement
+		Transformation trafoAux = Transformation.ofDeg(signX * 45, signY * 20, 0, signX * signY * 45, 0, 0);
+		Transformation trafoTar = Transformation.ofDeg(signX * 65, signY * 65, 0, signX * signY * 90, 0, 0);
+		Frame auxFrame = currentFrame.copy().transform(trafoAux).setBetaRad(0).setGammaRad(Math.PI);
+		Frame tarFrame = currentFrame.copy().transform(trafoTar).setBetaRad(0).setGammaRad(Math.PI);
+
+		// try to execute the circ movement. It may fail, because we are moving in a loop and the 7th axis may be close
+		// to its limit. If the motion calculation fails, simply move up, turn the axis by 180 deg, move down and retry
+		// the circ movement
+		try {
+			IMotionContainer mc = tool.move(BasicMotions.circ(auxFrame, tarFrame).setCartVelocity(highCartVel)
+					.breakWhen(cond).setMode(imp));
+			if (mc.hasFired(cond)) {
+				System.err.println("circ aborted due to force condition");
+				System.out.println("Forces: " + robot.getExternalForceTorque(tool));
+			}
+			collisionFreeMovements.add(BasicMotions.circ(auxFrame, tarFrame).setJointVelocityRel(0.5));
+		} catch (Exception e) {
+			System.err.println("circ with current orientation failed, turning tool now");
+			// move up
+			moveUp();
+			collisionFreeMovements.add(BasicMotions.linRel(0, 0, 40, robot.getRootFrame()).setCartVelocity(250));
+
+			// add 180 deg turn
+			JointPosition currentJoints = robot.getCurrentJointPosition();
+			if (currentJoints.get(6) > 0) {
+				currentJoints.set(6, currentJoints.get(6) - Math.PI);
+			} else {
+				currentJoints.set(6, currentJoints.get(6) + Math.PI);
+			}
+
+			// turn around
+			robot.moveAsync(BasicMotions.ptp(currentJoints).setBlendingCart(5));
+			collisionFreeMovements.add(BasicMotions.ptp(currentJoints).setBlendingCart(5));
+
+			// if the tool is turned around by 180 deg, also the movement directions are inverted
+			xDirection = xDirection.invert();
+			signX = xDirection.val();
+			yCurveDirection = yCurveDirection.invert();
+			signY = yCurveDirection.val();
+
+			// move down
+			moveDown();
+			collisionFreeMovements.add(BasicMotions.linRel(0, 0, -40, robot.getRootFrame()).setCartVelocity(250));
+
+			// retrying movement, so reconfigure target location
+			currentFrame = robotControl.getTcpFrame();
+
+			// create new transformations with changed signs
+			trafoAux = Transformation.ofDeg(signX * 45, signY * 20, 0, signX * signY * 45, 0, 0);
+			trafoTar = Transformation.ofDeg(signX * 65, signY * 65, 0, signX * signY * 90, 0, 0);
+			auxFrame = currentFrame.copy().transform(trafoAux).setBetaRad(0).setGammaRad(Math.PI);
+			tarFrame = currentFrame.copy().transform(trafoTar).setBetaRad(0).setGammaRad(Math.PI);
+
+			tool.move(BasicMotions.circ(auxFrame, tarFrame).setCartVelocity(highCartVel).breakWhen(cond).setMode(imp));
+			collisionFreeMovements.add(BasicMotions.circ(auxFrame, tarFrame).setJointVelocityRel(0.5));
+		}
+
+		// move down, just for testing
+		// moveDown();
+	}
+
+	private void moveXuntilContact() {
+		System.out.println("### -- moveXuntilContact --- " + "xDirection: " + xDirection.val());
+
+		IMotionContainer activeMotion = null;
+		IMotionContainer nextMotion = null;
+
+		double breakForceOffset = 8;
+
+		Vector tmp = robot.getExternalForceTorque(tool).getForce();
+		double breakForce = Math.max(Math.max(Math.abs(tmp.getX()), Math.abs(tmp.getY())), Math.abs(tmp.getZ()));
+		// System.out.println("breakForce: " + breakForce + " " +tmp);
+		ICondition cond = ForceCondition.createSpatialForceCondition(null, breakForce + breakForceOffset);
+
+		// start exploration
+		activeMotion = tool.moveAsync(BasicMotions.linRel(xDirection.val() * 70, 0, 0).setCartVelocity(lowCartVel)
+				.setBlendingCart(10).breakWhen(cond).setMode(imp));
+
+		// tool centering
+		centerTool();
+
+		// calculate force condition
+		breakForce = Math.abs(robot.getExternalForceTorque(tool).getForce().getX());
+		System.out.println("xForce = " + breakForce);
+		cond = ForceCondition.createNormalForceCondition(null, CoordinateAxis.X, breakForce + breakForceOffset);
+		// /* hack broken torque sensor */+ ((counter == 3) ? 10 : 0));
+
+		double yForce = 0;
+		while (true) {
+			// create next motion, wait for the active one to finish
+			nextMotion = tool.moveAsync(BasicMotions.linRel(xDirection.val() * 30, 0, 0).setCartVelocity(lowCartVel)
+					.setCartAcceleration(75).breakWhen(cond).setBlendingCart(10).setMode(imp));
+			activeMotion.await();
+
+			// if the active motion was aborted because of contact, get the measured force in y direction [during
+			// contact with the curved obstacle the robot is pushed in either positive or negative y direction, which
+			// allows to choose the direction of the upcoming curve] and break the approach loop
+			if (activeMotion.hasFired(cond)) {
+				nextMotion.cancel();
+				System.out.println(System.currentTimeMillis() + " ForceCondition has fired!");
+				ThreadUtil.milliSleep(300);
+				yForce = robot.getExternalForceTorque(tool).getForce().getY();
+				break;
+			}
+			activeMotion = nextMotion;
+		}
+
+		// move out of the collision
+		tool.move(BasicMotions.linRel(xDirection.val() * -25, (yForce > 0) ? -5 : 5, 0).setCartVelocity(lowCartVel));
+
+		collisionFreeMovements.add(BasicMotions.lin(robotControl.getTcpFrame()));
+
+		// adjust direction for the next curve movement
+		System.out.println("yForce in contact: " + yForce);
+		if (yForce > 0) {
+			this.yCurveDirection = Direction.POSITIVE;
+		} else {
+			this.yCurveDirection = Direction.NEGATIVE;
+		}
+	}
+
+}

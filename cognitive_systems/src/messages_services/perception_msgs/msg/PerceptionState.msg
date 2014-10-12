@@ -1,0 +1,6 @@
+#PerceptionState {STANDBY, ACTIVE, DISABLED}
+
+int32 STANDBY 	= 0
+int32 ACTIVE 	= 1
+int32 DISABLED 	= 2
+

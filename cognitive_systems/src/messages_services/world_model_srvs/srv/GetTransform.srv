@@ -1,0 +1,6 @@
+string base_frame
+string target_frame
+---
+geometry_msgs/Pose pose
+string error_msg
+bool success

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Export-Package: de.tum.i6.cogsys;version="0.1.0";uses:="de.tum.i6.cogs
+ ys.msgs,de.tum.i6.cogsys.srvs,geometry_msgs,org.ros.exception,org.ros
+ .message,org.ros.namespace,org.ros.node",de.tum.i6.cogsys.msgs;versio
+ n="0.1.0";uses:="actor_msgs,org.ros.node,org.ros.node.topic,org.smero
+ botics.util.msg,speech_recognition_msgs",de.tum.i6.cogsys.srvs;versio
+ n="0.1.0";uses:="geometry_msgs,org.ros.node,org.smerobotics.util.srv"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: demo_cogsys_java
+Bnd-LastModified: 1408535109000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_projects.demo_cogsys_
+ java
+Import-Package: actor_msgs;version="[0.1,1)",geometry_msgs;version="[1
+ .10,2)",gripper_control_srvs;version="[0.1,1)",org.ros.exception,org.
+ ros.message,org.ros.namespace,org.ros.node,org.ros.node.service,org.r
+ os.node.topic,org.smerobotics.util.msg;version="[0.1,1)",org.smerobot
+ ics.util.srv;version="[0.1,1)",robot_control_srvs;version="[0.1,1)",s
+ peech_recognition_msgs;version="[0.1,1)",speech_recognition_srvs;vers
+ ion="[0.1,1)",world_model_srvs;version="[0.1,1)"
+

@@ -1,0 +1,96 @@
+package exercises;
+
+import java.util.Vector;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+
+import data.DataHandler;
+
+public class Exercise1b_BasicMotions extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise1b_BasicMotions app = new Exercise1b_BasicMotions();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	RobotController controller;
+	Tool tool;
+
+	@Override
+	public void run() {
+		controller = RobotController.getInstance();
+		tool = controller.getTool();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// load saved Frames and JointPositons with the DataHandler class
+		Frame[] frames = new Frame[5];
+		JointPosition[] jointPositions = new JointPosition[5];
+		for (int i = 0; i < 5; i++) {
+			frames[i] = DataHandler.loadFrame("F" + i);
+			jointPositions[i] = DataHandler.loadJointPos("J" + i);
+		}
+		
+		
+		
+
+		// PTP movements to frames can be executed using different ObjectFrames. Two of these are the LBR class and the
+		// Tool class. Using robot.move(Frame) will move the flange of the robot to the target frame while using
+		// tool.move(Frame) will move the tcp of the tool to the target frame.
+		// System.out.println("Moving to F0");
+		// tool.move(BasicMotions.ptp(F0));
+		
+		
+		
+		
+
+		// PTP movements with blending, movements are async to that blending is possible
+		// double blendingRadiusJoints = 0.1;
+		// System.out.println("Moving to F0 with blending");
+		// tool.moveAsync(BasicMotions.ptp(F0).setBlendingRel(blendingRadiusJoints));
+		
+		
+		
+		
+
+		// LIN movements with blending
+		// double blendingRadiusCart = 10;
+		// System.out.println("Moving LIN to F0 with blending");
+		// tool.moveAsync(BasicMotions.lin(F0).setBlendingCart(blendingRadiusCart));
+		
+		
+		
+		
+
+		// create a motion batch movement
+		// Vector<RobotMotion<?>> motionVector = new Vector<RobotMotion<?>>();
+		// motionVector.add(BasicMotions.lin(F0));
+		// RobotMotion<?>[] motionArray = motionVector.toArray(new RobotMotion<?>[motionVector.size()]);
+		// MotionBatch mb = new MotionBatch(motionArray);
+		// // set parameters for mb
+		// System.out.println("Executing motion batch now");
+		// tool.move(mb);
+		
+		
+		
+		
+
+		// move to a joint position
+		// JointPosition J0 = DataHandler.loadJointPos("J0");
+		// System.out.println("Moving to JointPosition J0");
+		// tool.move(BasicMotions.ptp(J0));
+
+		System.exit(0);
+	}
+}

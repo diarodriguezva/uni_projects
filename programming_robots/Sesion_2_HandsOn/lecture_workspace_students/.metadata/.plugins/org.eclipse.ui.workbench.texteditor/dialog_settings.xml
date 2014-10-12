@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="275" key="DIALOG_WIDTH"/>
+		<item value="201" key="DIALOG_Y_ORIGIN"/>
+		<item value="416" key="DIALOG_HEIGHT"/>
+		<item value="1047" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Sans|10.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="RobotController.getInstance()" key="selection"/>
+		<list key="findhistory">
+			<item value="RobotController.getInstance()"/>
+			<item value="robot"/>
+			<item value="ExerciseConfiguration"/>
+			<item value="tool"/>
+			<item value="P0"/>
+			<item value="P4"/>
+			<item value="P3"/>
+			<item value="P2"/>
+		</list>
+		<list key="replacehistory">
+			<item value="controller"/>
+			<item value="tool"/>
+			<item value="DataHandler"/>
+			<item value="robot"/>
+			<item value="F0"/>
+			<item value="F3"/>
+			<item value="F2"/>
+			<item value="F1"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,11 @@
+- Run MATLAB (for avoiding problems, it should be better to use MATLAB 2010b or later versions)
+- Go into the simulation files directory "3DOF_simulator"
+- Run init.m
+- Open library "m3dof_library.mdl"
+- Create a new model and start developing your simulation
+
+N.B.: for running the library functions, your MATLAB shell should always stay into the "3DOF_simulator" directory
+For lower versions of MATLAB, it could be possible that for running the simulation you need to configure MATLAB for compilation. In the MATLAB shell type:
+mex -setup
+
+For every problem, contact me at alessandro.giordano@tum.de

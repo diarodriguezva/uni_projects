@@ -1,0 +1,134 @@
+#VRML V2.0 utf8
+Transform {
+	children [
+
+		DEF gripperbot Transform {
+			children [
+				Inline {
+					url "gripperbot.wrl"
+				}
+			]
+		}
+
+		DEF cambot Transform {
+        	translation 0.628 0.0 0.0
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "cambot.wrl"
+				}
+			]
+		}
+
+		DEF baseplate Transform {
+        	translation 0.313 -0.053 -0.02
+        	rotation 0 0 1 -1.570796326
+			children [
+				Inline {
+					url "baseplate.wrl"
+				}
+			]
+		}
+
+		DEF table Transform {
+        	translation 0.413 -0.003 0.17
+			children [
+				Inline {
+					url "table.wrl"
+				}
+			]
+		}
+
+		DEF cambotstopbutton Transform {
+        	translation 0.714 0.213 0.0
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "emergency_stop_button.wrl"
+				}
+			]
+		}
+		
+		DEF gripperbotstopbutton Transform {
+        	translation 0.617 0.213 0.0
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "emergency_stop_button.wrl"
+				}
+			]
+		}
+
+		DEF router Transform {
+        	translation 0.617 -0.29 0.0
+        	rotation 0 0.707 0.707 3.14159265359
+			children [
+				Inline {
+					url "router.wrl"
+				}
+			]
+		}
+
+		DEF gripperbotpsu Transform {
+        	translation 0.625 -0.175 0.0
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "psu.wrl"
+				}
+			]
+		}
+
+		DEF cambotpsu Transform {
+        	translation 0.625 -0.115 0.0
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "psu.wrl"
+				}
+			]
+		}
+
+		DEF boxgreenlower Transform {
+        	translation 0.313 -0.32 0
+        	rotation 0.577 -0.577 -0.577 2.094
+			children [
+				Inline {
+					url "boxgreen.wrl"
+				}
+			]
+		}
+
+		DEF boxgreen Transform {
+        	translation 0.313 -0.32 0.07
+        	rotation 0.577 -0.577 -0.577 2.094
+			children [
+				Inline {
+					url "boxgreen.wrl"
+				}
+			]
+		}
+
+		DEF boxredlower Transform {
+        	translation 0.193 -0.32 0
+        	rotation 0.577 -0.577 -0.577 2.094
+			children [
+				Inline {
+					url "boxred.wrl"
+				}
+			]
+		}
+
+		DEF boxred Transform {
+        	translation 0.193 -0.32 0.07
+        	rotation 0.577 -0.577 -0.577 2.094
+			children [
+				Inline {
+					url "boxred.wrl"
+				}
+			]
+		}
+
+	]
+}
+

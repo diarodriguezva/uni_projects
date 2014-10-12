@@ -1,0 +1,423 @@
+model SpeedSound
+parameter Real one.L = 0.2;
+parameter Real one.A = 0.01;
+parameter Real one.D = 1.29;
+parameter Real one.Kc = 1E-005;
+parameter Real one.Kr = 5000;
+parameter Real one.I.L = one.L;
+parameter Real one.I.D = one.D;
+parameter Real one.I.A = one.A;
+parameter Real one.C.Kc = one.Kc;
+parameter Real one.C.L = one.L;
+parameter Real one.C.A = one.A;
+parameter Real one.F.Kr = one.Kr;
+parameter Real two.L = 0.2;
+parameter Real two.A = 0.01;
+parameter Real two.D = 1.29;
+parameter Real two.Kc = 1E-005;
+parameter Real two.Kr = 5000;
+parameter Real two.I.L = two.L;
+parameter Real two.I.D = two.D;
+parameter Real two.I.A = two.A;
+parameter Real two.C.Kc = two.Kc;
+parameter Real two.C.L = two.L;
+parameter Real two.C.A = two.A;
+parameter Real two.F.Kr = two.Kr;
+parameter Real three.L = 0.2;
+parameter Real three.A = 0.01;
+parameter Real three.D = 1.29;
+parameter Real three.Kc = 1E-005;
+parameter Real three.Kr = 5000;
+parameter Real three.I.L = three.L;
+parameter Real three.I.D = three.D;
+parameter Real three.I.A = three.A;
+parameter Real three.C.Kc = three.Kc;
+parameter Real three.C.L = three.L;
+parameter Real three.C.A = three.A;
+parameter Real three.F.Kr = three.Kr;
+parameter Real four.L = 0.2;
+parameter Real four.A = 0.01;
+parameter Real four.D = 1.29;
+parameter Real four.Kc = 1E-005;
+parameter Real four.Kr = 5000;
+parameter Real four.I.L = four.L;
+parameter Real four.I.D = four.D;
+parameter Real four.I.A = four.A;
+parameter Real four.C.Kc = four.Kc;
+parameter Real four.C.L = four.L;
+parameter Real four.C.A = four.A;
+parameter Real four.F.Kr = four.Kr;
+parameter Real five.L = 0.2;
+parameter Real five.A = 0.01;
+parameter Real five.D = 1.29;
+parameter Real five.Kc = 1E-005;
+parameter Real five.Kr = 5000;
+parameter Real five.I.L = five.L;
+parameter Real five.I.D = five.D;
+parameter Real five.I.A = five.A;
+parameter Real five.C.Kc = five.Kc;
+parameter Real five.C.L = five.L;
+parameter Real five.C.A = five.A;
+parameter Real five.F.Kr = five.Kr;
+parameter Real signal.amplitude = 100 "Amplitude of pulse";
+parameter Real signal.width(min = 1E-060, max = 100.0) = 50 "Width of pulse in % of period";
+parameter Modelica.SIunits.Time signal.period(start = 1, min = 1E-060) = 
+  0.016666666666666666 "Time for one period";
+parameter Integer signal.nperiod = -1 "Number of periods (< 0 means infinite number of periods)";
+parameter Real signal.offset = 0 "Offset of output signals";
+parameter Modelica.SIunits.Time signal.startTime = 0 "Output = offset for time < startTime";
+
+Modelica.SIunits.Pressure one.I.P;
+Modelica.SIunits.VolumeFlowRate one.I.v;
+Modelica.SIunits.Pressure one.I.first.P;
+Modelica.SIunits.VolumeFlowRate one.I.first.v;
+Modelica.SIunits.Pressure one.I.second.P;
+Modelica.SIunits.VolumeFlowRate one.I.second.v;
+Modelica.SIunits.Pressure one.C.P;
+Modelica.SIunits.VolumeFlowRate one.C.v;
+Modelica.SIunits.Pressure one.C.first.P;
+Modelica.SIunits.VolumeFlowRate one.C.first.v;
+Modelica.SIunits.Pressure one.F.P;
+Modelica.SIunits.VolumeFlowRate one.F.v;
+Modelica.SIunits.Pressure one.F.first.P;
+Modelica.SIunits.VolumeFlowRate one.F.first.v;
+Modelica.SIunits.Pressure one.F.second.P;
+Modelica.SIunits.VolumeFlowRate one.F.second.v;
+Modelica.SIunits.Pressure one.TubeIn.P;
+Modelica.SIunits.VolumeFlowRate one.TubeIn.v;
+Modelica.SIunits.Pressure one.TubeOut.P;
+Modelica.SIunits.VolumeFlowRate one.TubeOut.v;
+Modelica.SIunits.Pressure two.I.P;
+Modelica.SIunits.VolumeFlowRate two.I.v;
+Modelica.SIunits.Pressure two.I.first.P;
+Modelica.SIunits.VolumeFlowRate two.I.first.v;
+Modelica.SIunits.Pressure two.I.second.P;
+Modelica.SIunits.VolumeFlowRate two.I.second.v;
+Modelica.SIunits.Pressure two.C.P;
+Modelica.SIunits.VolumeFlowRate two.C.v;
+Modelica.SIunits.Pressure two.C.first.P;
+Modelica.SIunits.VolumeFlowRate two.C.first.v;
+Modelica.SIunits.Pressure two.F.P;
+Modelica.SIunits.VolumeFlowRate two.F.v;
+Modelica.SIunits.Pressure two.F.first.P;
+Modelica.SIunits.VolumeFlowRate two.F.first.v;
+Modelica.SIunits.Pressure two.F.second.P;
+Modelica.SIunits.VolumeFlowRate two.F.second.v;
+Modelica.SIunits.Pressure two.TubeIn.P;
+Modelica.SIunits.VolumeFlowRate two.TubeIn.v;
+Modelica.SIunits.Pressure two.TubeOut.P;
+Modelica.SIunits.VolumeFlowRate two.TubeOut.v;
+Modelica.SIunits.Pressure three.I.P;
+Modelica.SIunits.VolumeFlowRate three.I.v;
+Modelica.SIunits.Pressure three.I.first.P;
+Modelica.SIunits.VolumeFlowRate three.I.first.v;
+Modelica.SIunits.Pressure three.I.second.P;
+Modelica.SIunits.VolumeFlowRate three.I.second.v;
+Modelica.SIunits.Pressure three.C.P;
+Modelica.SIunits.VolumeFlowRate three.C.v;
+Modelica.SIunits.Pressure three.C.first.P;
+Modelica.SIunits.VolumeFlowRate three.C.first.v;
+Modelica.SIunits.Pressure three.F.P;
+Modelica.SIunits.VolumeFlowRate three.F.v;
+Modelica.SIunits.Pressure three.F.first.P;
+Modelica.SIunits.VolumeFlowRate three.F.first.v;
+Modelica.SIunits.Pressure three.F.second.P;
+Modelica.SIunits.VolumeFlowRate three.F.second.v;
+Modelica.SIunits.Pressure three.TubeIn.P;
+Modelica.SIunits.VolumeFlowRate three.TubeIn.v;
+Modelica.SIunits.Pressure three.TubeOut.P;
+Modelica.SIunits.VolumeFlowRate three.TubeOut.v;
+Modelica.SIunits.Pressure four.I.P;
+Modelica.SIunits.VolumeFlowRate four.I.v;
+Modelica.SIunits.Pressure four.I.first.P;
+Modelica.SIunits.VolumeFlowRate four.I.first.v;
+Modelica.SIunits.Pressure four.I.second.P;
+Modelica.SIunits.VolumeFlowRate four.I.second.v;
+Modelica.SIunits.Pressure four.C.P;
+Modelica.SIunits.VolumeFlowRate four.C.v;
+Modelica.SIunits.Pressure four.C.first.P;
+Modelica.SIunits.VolumeFlowRate four.C.first.v;
+Modelica.SIunits.Pressure four.F.P;
+Modelica.SIunits.VolumeFlowRate four.F.v;
+Modelica.SIunits.Pressure four.F.first.P;
+Modelica.SIunits.VolumeFlowRate four.F.first.v;
+Modelica.SIunits.Pressure four.F.second.P;
+Modelica.SIunits.VolumeFlowRate four.F.second.v;
+Modelica.SIunits.Pressure four.TubeIn.P;
+Modelica.SIunits.VolumeFlowRate four.TubeIn.v;
+Modelica.SIunits.Pressure four.TubeOut.P;
+Modelica.SIunits.VolumeFlowRate four.TubeOut.v;
+Modelica.SIunits.Pressure five.I.P;
+Modelica.SIunits.VolumeFlowRate five.I.v;
+Modelica.SIunits.Pressure five.I.first.P;
+Modelica.SIunits.VolumeFlowRate five.I.first.v;
+Modelica.SIunits.Pressure five.I.second.P;
+Modelica.SIunits.VolumeFlowRate five.I.second.v;
+Modelica.SIunits.Pressure five.C.P;
+Modelica.SIunits.VolumeFlowRate five.C.v;
+Modelica.SIunits.Pressure five.C.first.P;
+Modelica.SIunits.VolumeFlowRate five.C.first.v;
+Modelica.SIunits.Pressure five.F.P;
+Modelica.SIunits.VolumeFlowRate five.F.v;
+Modelica.SIunits.Pressure five.F.first.P;
+Modelica.SIunits.VolumeFlowRate five.F.first.v;
+Modelica.SIunits.Pressure five.F.second.P;
+Modelica.SIunits.VolumeFlowRate five.F.second.v;
+Modelica.SIunits.Pressure five.TubeIn.P;
+Modelica.SIunits.VolumeFlowRate five.TubeIn.v;
+Modelica.SIunits.Pressure five.TubeOut.P;
+Modelica.SIunits.VolumeFlowRate five.TubeOut.v;
+Modelica.Blocks.Interfaces.RealInput source.P;
+Modelica.SIunits.VolumeFlowRate source.v;
+Modelica.SIunits.Pressure source.first.P;
+Modelica.SIunits.VolumeFlowRate source.first.v;
+Modelica.Blocks.Interfaces.RealOutput signal.y "Connector of Real output signal";
+protected 
+Modelica.SIunits.Time signal.T_width = signal.period*signal.width/100;
+Modelica.SIunits.Time signal.T_start "Start time of current period";
+Integer signal.count "Period count";
+public 
+// Equations and algorithms
+
+  // Component one.I
+  // class HydraulicInductance
+    // extends OnePortHydraulics
+    equation
+      one.I.P = one.I.first.P-one.I.second.P;
+      one.I.first.v+one.I.second.v = 0;
+      one.I.v = one.I.first.v;
+    // end of extends 
+  equation
+    der(one.I.v)*one.I.D*one.I.L/one.I.A = one.I.P;
+
+  // Component one.C
+  // class CompresiveVolume
+  equation
+    der(one.C.P)*one.C.Kc*one.C.A*one.C.L = one.C.v;
+    one.C.P = one.C.first.P;
+    one.C.v = one.C.first.v;
+
+  // Component one.F
+  // class PipeFriction
+    // extends OnePortHydraulics
+    equation
+      one.F.P = one.F.first.P-one.F.second.P;
+      one.F.first.v+one.F.second.v = 0;
+      one.F.v = one.F.first.v;
+    // end of extends 
+  equation
+    one.F.P = one.F.Kr*one.F.v;
+
+  // Component one
+  // class HydraulicSection
+  equation
+    one.F.first.P = one.C.first.P;
+    one.I.second.P = one.C.first.P;
+    one.C.first.v+one.F.first.v+one.I.second.v = 0.0;
+    one.TubeOut.P = one.F.second.P;
+    one.TubeOut.v-one.F.second.v = 0.0;
+    one.TubeIn.P = one.I.first.P;
+    one.TubeIn.v-one.I.first.v = 0.0;
+
+  // Component two.I
+  // class HydraulicInductance
+    // extends OnePortHydraulics
+    equation
+      two.I.P = two.I.first.P-two.I.second.P;
+      two.I.first.v+two.I.second.v = 0;
+      two.I.v = two.I.first.v;
+    // end of extends 
+  equation
+    der(two.I.v)*two.I.D*two.I.L/two.I.A = two.I.P;
+
+  // Component two.C
+  // class CompresiveVolume
+  equation
+    der(two.C.P)*two.C.Kc*two.C.A*two.C.L = two.C.v;
+    two.C.P = two.C.first.P;
+    two.C.v = two.C.first.v;
+
+  // Component two.F
+  // class PipeFriction
+    // extends OnePortHydraulics
+    equation
+      two.F.P = two.F.first.P-two.F.second.P;
+      two.F.first.v+two.F.second.v = 0;
+      two.F.v = two.F.first.v;
+    // end of extends 
+  equation
+    two.F.P = two.F.Kr*two.F.v;
+
+  // Component two
+  // class HydraulicSection
+  equation
+    two.F.first.P = two.C.first.P;
+    two.I.second.P = two.C.first.P;
+    two.C.first.v+two.F.first.v+two.I.second.v = 0.0;
+    two.TubeOut.P = two.F.second.P;
+    two.TubeOut.v-two.F.second.v = 0.0;
+    two.TubeIn.P = two.I.first.P;
+    two.TubeIn.v-two.I.first.v = 0.0;
+
+  // Component three.I
+  // class HydraulicInductance
+    // extends OnePortHydraulics
+    equation
+      three.I.P = three.I.first.P-three.I.second.P;
+      three.I.first.v+three.I.second.v = 0;
+      three.I.v = three.I.first.v;
+    // end of extends 
+  equation
+    der(three.I.v)*three.I.D*three.I.L/three.I.A = three.I.P;
+
+  // Component three.C
+  // class CompresiveVolume
+  equation
+    der(three.C.P)*three.C.Kc*three.C.A*three.C.L = three.C.v;
+    three.C.P = three.C.first.P;
+    three.C.v = three.C.first.v;
+
+  // Component three.F
+  // class PipeFriction
+    // extends OnePortHydraulics
+    equation
+      three.F.P = three.F.first.P-three.F.second.P;
+      three.F.first.v+three.F.second.v = 0;
+      three.F.v = three.F.first.v;
+    // end of extends 
+  equation
+    three.F.P = three.F.Kr*three.F.v;
+
+  // Component three
+  // class HydraulicSection
+  equation
+    three.F.first.P = three.C.first.P;
+    three.I.second.P = three.C.first.P;
+    three.C.first.v+three.F.first.v+three.I.second.v = 0.0;
+    three.TubeOut.P = three.F.second.P;
+    three.TubeOut.v-three.F.second.v = 0.0;
+    three.TubeIn.P = three.I.first.P;
+    three.TubeIn.v-three.I.first.v = 0.0;
+
+  // Component four.I
+  // class HydraulicInductance
+    // extends OnePortHydraulics
+    equation
+      four.I.P = four.I.first.P-four.I.second.P;
+      four.I.first.v+four.I.second.v = 0;
+      four.I.v = four.I.first.v;
+    // end of extends 
+  equation
+    der(four.I.v)*four.I.D*four.I.L/four.I.A = four.I.P;
+
+  // Component four.C
+  // class CompresiveVolume
+  equation
+    der(four.C.P)*four.C.Kc*four.C.A*four.C.L = four.C.v;
+    four.C.P = four.C.first.P;
+    four.C.v = four.C.first.v;
+
+  // Component four.F
+  // class PipeFriction
+    // extends OnePortHydraulics
+    equation
+      four.F.P = four.F.first.P-four.F.second.P;
+      four.F.first.v+four.F.second.v = 0;
+      four.F.v = four.F.first.v;
+    // end of extends 
+  equation
+    four.F.P = four.F.Kr*four.F.v;
+
+  // Component four
+  // class HydraulicSection
+  equation
+    four.F.first.P = four.C.first.P;
+    four.I.second.P = four.C.first.P;
+    four.C.first.v+four.F.first.v+four.I.second.v = 0.0;
+    four.TubeOut.P = four.F.second.P;
+    four.TubeOut.v-four.F.second.v = 0.0;
+    four.TubeIn.P = four.I.first.P;
+    four.TubeIn.v-four.I.first.v = 0.0;
+
+  // Component five.I
+  // class HydraulicInductance
+    // extends OnePortHydraulics
+    equation
+      five.I.P = five.I.first.P-five.I.second.P;
+      five.I.first.v+five.I.second.v = 0;
+      five.I.v = five.I.first.v;
+    // end of extends 
+  equation
+    der(five.I.v)*five.I.D*five.I.L/five.I.A = five.I.P;
+
+  // Component five.C
+  // class CompresiveVolume
+  equation
+    der(five.C.P)*five.C.Kc*five.C.A*five.C.L = five.C.v;
+    five.C.P = five.C.first.P;
+    five.C.v = five.C.first.v;
+
+  // Component five.F
+  // class PipeFriction
+    // extends OnePortHydraulics
+    equation
+      five.F.P = five.F.first.P-five.F.second.P;
+      five.F.first.v+five.F.second.v = 0;
+      five.F.v = five.F.first.v;
+    // end of extends 
+  equation
+    five.F.P = five.F.Kr*five.F.v;
+
+  // Component five
+  // class HydraulicSection
+  equation
+    five.F.first.P = five.C.first.P;
+    five.I.second.P = five.C.first.P;
+    five.C.first.v+five.F.first.v+five.I.second.v = 0.0;
+    five.TubeOut.P = five.F.second.P;
+    five.TubeOut.v-five.F.second.v = 0.0;
+    five.TubeIn.P = five.I.first.P;
+    five.TubeIn.v-five.I.first.v = 0.0;
+    five.TubeOut.v = 0.0;
+
+  // Component source
+  // class SignalPressure
+  equation
+    source.P = source.first.P;
+    source.v = source.first.v;
+
+  // Component signal
+  // class Modelica.Blocks.Sources.Pulse
+  equation
+    when integer((time-signal.startTime)/signal.period) > pre(signal.count) then
+      signal.count = pre(signal.count)+1;
+      signal.T_start = time;
+    end when;
+    signal.y = signal.offset+(if time < signal.startTime or signal.nperiod == 0
+       or signal.nperiod > 0 and signal.count >= signal.nperiod then 0 else (if 
+      time < signal.T_start+signal.T_width then signal.amplitude else 0));
+
+  // Component 
+  // class SpeedSound
+  equation
+    four.TubeOut.P = five.TubeIn.P;
+    five.TubeIn.v+four.TubeOut.v = 0.0;
+    three.TubeOut.P = four.TubeIn.P;
+    four.TubeIn.v+three.TubeOut.v = 0.0;
+    source.first.P = one.TubeIn.P;
+    one.TubeIn.v+source.first.v = 0.0;
+    two.TubeIn.P = one.TubeOut.P;
+    one.TubeOut.v+two.TubeIn.v = 0.0;
+    source.P = signal.y;
+    two.TubeOut.P = three.TubeIn.P;
+    three.TubeIn.v+two.TubeOut.v = 0.0;
+            
+// Initial equations and algorithms
+
+  // Component signal
+  // class Modelica.Blocks.Sources.Pulse
+  initial algorithm
+    signal.count := integer((time-signal.startTime)/signal.period);
+    signal.T_start := signal.startTime+signal.count*signal.period;
+
+end SpeedSound;

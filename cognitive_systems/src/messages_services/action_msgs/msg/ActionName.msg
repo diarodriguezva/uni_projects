@@ -1,0 +1,13 @@
+#Action Names
+
+int32 MOVE 				= 1
+int32 MOVETRAJECTORY			= 2
+int32 MOVEJOINT 			= 3
+int32 MOVECARTESIAN 			= 4
+int32 OPENGRIPPER 			= 5
+int32 CLOSEGRIPPER 			= 6
+int32 STOPROBOT 			= 7
+int32 WELDGUNON				= 8
+int32 WELDGUNOFF			= 9
+
+

@@ -1,0 +1,121 @@
+package exercises;
+
+import java.util.Vector;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+
+import data.DataHandler;
+
+public class Exercise1b_BasicMotions extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise1b_BasicMotions app = new Exercise1b_BasicMotions();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	RobotController controller;
+	Tool tool;
+
+	@Override
+	public void run() {
+		controller = RobotController.getInstance();
+		tool = controller.getTool();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		Frame F1 = DataHandler.loadFrame("F5");
+		Frame F2 = DataHandler.loadFrame("F6");
+		Frame F3 = DataHandler.loadFrame("F7");
+		Frame F4 = DataHandler.loadFrame("F8");
+
+		// PTP movements to frames
+		System.out.println("Moving to front");
+		controller.goFront();
+		System.out.println("Moving to F0");
+		tool.move(BasicMotions.ptp(F1));
+		System.out.println("Moving to F1");
+		tool.move(BasicMotions.ptp(F2));
+		System.out.println("Moving to F2");
+		tool.move(BasicMotions.ptp(F3));
+		System.out.println("Moving to F3");
+		tool.move(BasicMotions.ptp(F4));
+
+		double blendingRadius = 0.2;
+
+		// PTP movements with blending, movements are async to that blending is possible
+		System.out.println("Moving to front");
+		controller.goFront();
+		System.out.println("Moving to F0 with blending");
+		tool.moveAsync(BasicMotions.ptp(F1).setBlendingRel(blendingRadius));
+		System.out.println("Moving to F1 with blending");
+		tool.moveAsync(BasicMotions.ptp(F2).setBlendingRel(blendingRadius));
+		System.out.println("Moving to F2 with blending");
+		tool.moveAsync(BasicMotions.ptp(F3).setBlendingRel(blendingRadius));
+		System.out.println("Moving to F3");
+		tool.move(BasicMotions.ptp(F4));
+
+		double blendingRadiusCart = 10;
+
+		// LIN movements with blending
+		System.out.println("Moving to front"); // so that LIN motions are most likely possible
+		controller.goFront();
+		System.out.println("Moving LIN to F0 with blending");
+		tool.moveAsync(BasicMotions.lin(F1).setBlendingCart(blendingRadiusCart));
+		System.out.println("Moving LIN to F1 with blending");
+		tool.moveAsync(BasicMotions.lin(F2).setBlendingCart(blendingRadiusCart));
+		System.out.println("Moving LIN to F2");
+		tool.move(BasicMotions.lin(F3).setBlendingCart(blendingRadiusCart));
+		System.out.println("Moving to F3");
+		tool.move(BasicMotions.lin(F4));
+
+		// create a motion batch movement
+		Vector<RobotMotion<?>> l = new Vector<RobotMotion<?>>();
+		l.add(BasicMotions.lin(F1).setBlendingRel(0));
+		l.add(BasicMotions.lin(F3));
+		l.add(BasicMotions.lin(F2));
+		l.add(BasicMotions.lin(F4));
+		l.add(BasicMotions.lin(F1));
+		l.add(BasicMotions.lin(F2));
+		l.add(BasicMotions.lin(F4));
+		l.add(BasicMotions.lin(F3));
+		l.add(BasicMotions.lin(F1));
+
+		RobotMotion<?>[] motionArray = l.toArray(new RobotMotion<?>[l.size()]);
+		MotionBatch mb = new MotionBatch(motionArray);
+		mb.setBlendingRel(0.1);
+		mb.setJointVelocityRel(0.5);
+		mb.setJointAccelerationRel(0.5);
+
+		System.out.println("Executing motion batch now");
+		tool.move(mb);
+
+		// move to a joint position
+		JointPosition J0 = DataHandler.loadJointPos("J0");
+		System.out.println("Moving to JointPosition J0");
+		tool.move(BasicMotions.ptp(J0));
+
+		// observe ptp movements to joint positions and frames
+		Frame F5 = DataHandler.loadFrame("F10");
+		JointPosition J5 = DataHandler.loadJointPos("J3");
+
+		Frame F6 = DataHandler.loadFrame("F11");
+		JointPosition J6 = DataHandler.loadJointPos("J4");
+
+		tool.move(BasicMotions.ptp(J5).setJointVelocityRel(0.3));
+		tool.move(BasicMotions.ptp(J6).setJointVelocityRel(0.3));
+		tool.move(BasicMotions.ptp(F5).setJointVelocityRel(0.3));
+
+		System.exit(0);
+	}
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rlsg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rlsg.xsd">
+	<scene href="cogsys_demonstrator.wrl" >
+		<model name="cambot" haskinematic="true" kinematic="cambot.xml">
+			<body name="link0"/>
+			<body name="link1"/>
+			<body name="link2a"/>
+			<body name="link3"/>
+			<body name="link4a"/>
+			<body name="link5"/>
+			<body name="link4b"/>
+			<body name="link2b"/>
+		</model>
+		<model name="gripperbot" haskinematic="true" kinematic="gripperbot.xml">
+			<body name="link0"/>
+			<body name="link1"/>
+			<body name="link2a"/>
+			<body name="link3"/>
+			<body name="link4a"/>
+			<body name="link5"/>
+			<body name="link4b"/>
+			<body name="link2b"/>
+		</model>
+		<model name="baseplate">
+			<body name=""/>
+		</model>
+		<model name="table">
+			<body name=""/>
+		</model>
+		<model name="cambotstopbutton">
+			<body name=""/>
+		</model>
+		<model name="gripperbotstopbutton">
+			<body name=""/>
+		</model>
+		<model name="router">
+			<body name=""/>
+		</model>
+		<model name="gripperbotpsu">
+			<body name=""/>
+		</model>
+		<model name="cambotpsu">
+			<body name=""/>
+		</model>
+		<model name="boxgreen">
+			<body name=""/>
+		</model>
+		<model name="boxgreenlower">
+			<body name=""/>
+		</model>
+		<model name="boxred">
+			<body name=""/>
+		</model>
+		<model name="boxredlower">
+			<body name=""/>
+		</model>
+	</scene>
+</rlsg>

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Export-Package: world_model_srvs;version="0.1.0";uses:="geometry_msgs,
+ org.ros.internal.message"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: world_model_srvs
+Bnd-LastModified: 1408692075000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_msgs_srvs.world_model
+ _srvs
+Import-Package: geometry_msgs;version="[1.10,2)",org.ros.internal.mess
+ age
+

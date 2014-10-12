@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rlmdl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rlmdl.xsd">
+	<model>
+		<manufacturer>Cognition Factory</manufacturer>
+		<name>cambot</name>
+		<world id="world">
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>180</z>
+			</rotation>
+			<translation>
+				<x>0.628</x>
+				<y>0</y>
+				<z>0</z>
+			</translation>
+			<g>
+				<x>0</x>
+				<y>0</y>
+				<z>9.86055</z>
+			</g>
+		</world>
+		<body id="body0">
+			<ignore/>
+		</body>
+		<body id="body1">
+		</body>
+		<frame id="frame1a"/>
+		<body id="body2a">
+		</body>
+		<frame id="frame1b"/>
+		<body id="body2b">
+		</body>
+		<frame id="frame2"/>
+		<body id="body3">
+		</body>
+		<frame id="frame3a"/>
+		<body id="body4a">
+		</body>
+		<frame id="frame3b"/>
+		<body id="body4b">
+		</body>
+		<frame id="frame4"/>
+		<body id="body5">
+		</body>
+		<frame id="frame5"/>
+		<fixed id="fixed0">
+			<frame>
+				<a idref="world"/>
+				<b idref="body0"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</translation>
+		</fixed>
+		<revolute id="joint0">
+			<frame>
+				<a idref="body0"/>
+				<b idref="body1"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>0</y>
+				<z>1</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed1a">
+			<frame>
+				<a idref="body1"/>
+				<b idref="frame1a"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>-0.02427</x>
+				<y>0</y>
+				<z>0.1402</z>
+			</translation>
+		</fixed>
+		<revolute id="joint1a">
+			<frame>
+				<a idref="frame1a"/>
+				<b idref="body2a"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed1b">
+			<frame>
+				<a idref="body1"/>
+				<b idref="frame1b"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0.02427</x>
+				<y>0</y>
+				<z>0.1282</z>
+			</translation>
+		</fixed>
+		<revolute id="joint1b">
+			<frame>
+				<a idref="frame1b"/>
+				<b idref="body2b"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed2">
+			<frame>
+				<a idref="body2a"/>
+				<b idref="frame2"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0</x>
+				<y>0</y>
+				<z>0.19</z>
+			</translation>
+		</fixed>
+		<revolute id="joint2">
+			<frame>
+				<a idref="frame2"/>
+				<b idref="body3"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed3a">
+			<frame>
+				<a idref="body3"/>
+				<b idref="frame3a"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0.07854</x>
+				<y>0</y>
+				<z>0.023</z>
+			</translation>
+		</fixed>
+		<revolute id="joint3a">
+			<frame>
+				<a idref="frame3a"/>
+				<b idref="body4a"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed3b">
+			<frame>
+				<a idref="body3"/>
+				<b idref="frame3b"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0.07854</x>
+				<y>0</y>
+				<z>0.048</z>
+			</translation>
+		</fixed>
+		<revolute id="joint3b">
+			<frame>
+				<a idref="frame3b"/>
+				<b idref="body4b"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed4">
+			<frame>
+				<a idref="body4a"/>
+				<b idref="frame4"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0.19</x>
+				<y>0</y>
+				<z>0</z>
+			</translation>
+		</fixed>
+		<revolute id="joint4">
+			<frame>
+				<a idref="frame4"/>
+				<b idref="body5"/>
+			</frame>
+			<axis>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</axis>
+			<max>90</max>
+			<min>-90</min>
+			<speed>100</speed>
+		</revolute>
+		<fixed id="fixed5">
+			<frame>
+				<a idref="body5"/>
+				<b idref="frame5"/>
+			</frame>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<translation>
+				<x>0.056</x>
+				<y>-0.027</y>
+				<z>-0.023</z>
+			</translation>
+		</fixed>
+		<gamma>
+			<row>
+				<col>1</col>
+				<col>0</col>
+				<col>0</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>1</col>
+				<col>0</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>-1</col>
+				<col>0</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>0</col>
+				<col>1</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>0</col>
+				<col>-1</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>0</col>
+				<col>1</col>
+			</row>
+			<row>
+				<col>0</col>
+				<col>1</col>
+				<col>0</col>
+			</row>
+		</gamma>
+	</model>
+</rlmdl>

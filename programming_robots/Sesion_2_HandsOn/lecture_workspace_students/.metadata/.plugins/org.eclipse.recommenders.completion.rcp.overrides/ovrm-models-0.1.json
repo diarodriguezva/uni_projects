@@ -1,0 +1,7 @@
+{
+  "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/roboticsAPI.jar": {
+    "location": "/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/roboticsAPI.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/home/seid_da/svn/seid_da/lecture_workspace/KukaJavaAPI/roboticsAPI.jar\u0027. Neither fingerprint \u00274794ed45d4a4728a4ce1a4377469438f68f06242\u0027 nor symbolic name \u0027com.kuka.roboticsAPI\u0027 are known."
+  }
+}

@@ -1,0 +1,89 @@
+package exercises;
+
+import java.util.Vector;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+
+import data.DataHandler;
+import data.FileLogger;
+import data.FileLogger.Fields;
+
+public class Exercise2_JointAndTaskSpace extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise2_JointAndTaskSpace app = new Exercise2_JointAndTaskSpace();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	RobotController controller;
+	LBR robot;
+	Tool tool;
+
+	@Override
+	public void run() {
+		controller = RobotController.getInstance();
+		robot = controller.getRobot();
+		tool = controller.getTool();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		double blendingRadiusCart = 10;
+
+		// load previously teached frames and joint positions
+		// load saved Frames and JointPositons with the DataHandler class
+		Frame[] frames = new Frame[Exercise1b_BasicMotions.NUM_RECORDS];
+		JointPosition[] jointPositions = new JointPosition[Exercise1b_BasicMotions.NUM_RECORDS];
+		for (int i = 0; i < Exercise1b_BasicMotions.NUM_RECORDS; i++) {
+			frames[i] = DataHandler.loadFrame("F" + i);
+			jointPositions[i] = DataHandler.loadJointPos("J" + i);
+		}
+				
+
+		// create a motion batch with PTP movements
+		RobotController.getInstance().goFront();
+		
+		
+		
+
+		// create a logger to write data to a log file every 100 ms
+		// FileLogger fl_PTP = new FileLogger(100, Fields.TIME, Fields.TRANSLATIONAL_DISTANCE,
+		// Fields.ROTATIONAL_DISTANCE,
+		// Fields.JOINT_SPACE_DISTANCE);
+		// fl_PTP.setFilename("log_PTP_movement");
+		
+		
+		
+		
+
+		// use a sync move to the first position, then start logging and execute the motion batch
+		// tool.move(BasicMotions.ptp(J0));
+		// fl_PTP.startLogging();
+		// tool.move(mb_PTP);
+		// fl_PTP.stopLogging();
+		
+		
+		
+		
+
+		// create a motion batch with LIN movements
+		
+		// create a logger to write data to a log file every 100 ms
+		
+		// start logging and execute the motion batch
+
+		System.exit(0);
+	}
+
+}

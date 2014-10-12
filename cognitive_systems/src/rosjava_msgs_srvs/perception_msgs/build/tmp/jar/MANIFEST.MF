@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Export-Package: perception_msgs;version="0.1.0";uses:="org.ros.interna
+ l.message"
+Bundle-Version: 0.1.0
+Tool: Bnd-2.1.0.20130426-122213
+Bundle-Name: perception_msgs
+Bnd-LastModified: 1408535074000
+Created-By: 1.6.0_32 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.fortiss.rosjava.rosjava_msgs_srvs.perception_
+ msgs
+Import-Package: org.ros.internal.message
+

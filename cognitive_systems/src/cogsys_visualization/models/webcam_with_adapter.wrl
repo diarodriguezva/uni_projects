@@ -1,0 +1,26 @@
+#VRML V2.0 utf8
+Transform {
+	children [
+
+		DEF webcamadapter Transform {
+		    rotation 0 1 0 1.570796326
+			children [
+				Inline {
+					url "webcam_adapter.wrl"
+				}
+			]
+		}
+
+		DEF webcam Transform {
+        	translation 0.025 0.0 -0.015
+        	rotation 0 0 1 3.14159265359
+			children [
+				Inline {
+					url "webcam.wrl"
+				}
+			]
+		}
+
+	]
+}
+

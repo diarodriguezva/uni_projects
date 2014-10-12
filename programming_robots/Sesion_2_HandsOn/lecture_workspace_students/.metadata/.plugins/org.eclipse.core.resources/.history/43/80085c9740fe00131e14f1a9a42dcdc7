@@ -1,0 +1,103 @@
+package exercises;
+
+import java.util.Vector;
+
+import robot.RobotController;
+
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.BasicMotions;
+import com.kuka.roboticsAPI.motionModel.MotionBatch;
+import com.kuka.roboticsAPI.motionModel.RobotMotion;
+
+import data.DataHandler;
+import data.FileLogger;
+import data.FileLogger.Fields;
+
+public class Exercise2_JointAndTaskSpace extends RoboticsAPIApplication {
+
+	public static void main(String[] args) {
+		// initialization
+		Exercise2_JointAndTaskSpace app = new Exercise2_JointAndTaskSpace();
+		RobotController.initialize(app);
+
+		app.run();
+	}
+
+	RobotController controller;
+	LBR robot;
+	Tool tool;
+
+	@Override
+	public void run() {
+		controller = RobotController.getInstance();
+		robot = controller.getRobot();
+		tool = controller.getTool();
+
+		System.out.println("Starting " + this.getClass().getSimpleName());
+
+		// load some previously teached frames
+		JointPosition J0 = DataHandler.loadJointPos("J5");
+
+		Frame F1 = DataHandler.loadFrame("F13");
+		JointPosition J1 = DataHandler.loadJointPos("J6");
+
+		Frame F2 = DataHandler.loadFrame("F14");
+		JointPosition J2 = DataHandler.loadJointPos("J7");
+
+		Frame F3 = DataHandler.loadFrame("F15");
+		JointPosition J3 = DataHandler.loadJointPos("J8");
+
+		double blendingRadiusCart = 10;
+
+		// create a motion batch with PTP movements
+		Vector<RobotMotion<?>> list_PTP = new Vector<RobotMotion<?>>();
+		list_PTP.add(BasicMotions.ptp(J1));
+		list_PTP.add(BasicMotions.ptp(J2));
+		list_PTP.add(BasicMotions.ptp(J3));
+
+		RobotMotion<?>[] ma_PTP = list_PTP.toArray(new RobotMotion<?>[list_PTP.size()]);
+		MotionBatch mb_PTP = new MotionBatch(ma_PTP);
+		mb_PTP.setJointVelocityRel(0.3);
+		mb_PTP.setBlendingCart(blendingRadiusCart);
+
+		// create a logger to write data to a log file every 100 ms
+		FileLogger fl_PTP = new FileLogger(100, Fields.TIME, Fields.TRANSLATIONAL_DISTANCE, Fields.ROTATIONAL_DISTANCE,
+				Fields.JOINT_SPACE_DISTANCE);
+		fl_PTP.setFilename("log_PTP_movement");
+
+		// use a sync move to the first position, then start logging and execute the motion batch
+		tool.move(BasicMotions.ptp(J0));
+		fl_PTP.startLogging();
+		tool.move(mb_PTP);
+		fl_PTP.stopLogging();
+
+		// create a motion batch with LIN movements
+		Vector<RobotMotion<?>> list_LIN = new Vector<RobotMotion<?>>();
+		list_LIN.add(BasicMotions.lin(F1));
+		list_LIN.add(BasicMotions.lin(F2));
+		list_LIN.add(BasicMotions.lin(F3));
+
+		RobotMotion<?>[] ma_LIN = list_LIN.toArray(new RobotMotion<?>[list_LIN.size()]);
+		MotionBatch mb_LIN = new MotionBatch(ma_LIN);
+		mb_LIN.setJointVelocityRel(0.3);
+		mb_LIN.setBlendingCart(blendingRadiusCart);
+
+		// create a logger to write data to a log file every 100 ms
+		FileLogger fl_LIN = new FileLogger(100, Fields.TIME, Fields.TRANSLATIONAL_DISTANCE, Fields.ROTATIONAL_DISTANCE,
+				Fields.JOINT_SPACE_DISTANCE);
+		fl_LIN.setFilename("log_LIN_movement");
+
+		// use a sync move to the first position, then start logging and execute the motion batch
+		tool.move(BasicMotions.ptp(J0));
+		fl_LIN.startLogging();
+		tool.move(mb_LIN);
+		fl_LIN.stopLogging();
+
+		System.exit(0);
+	}
+
+}

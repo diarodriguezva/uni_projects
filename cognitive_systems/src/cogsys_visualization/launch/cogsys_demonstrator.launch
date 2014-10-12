@@ -1,0 +1,3 @@
+<launch>
+  <node name="cogsys_visualization" pkg="cogsys_visualization" type="cogsys_visualization_node" args="$(find cogsys_visualization)/models/cogsys_demonstrator.xml $(find cogsys_visualization)/models/cambot.xml $(find cogsys_visualization)/models/gripperbot.xml" output="screen" />
+</launch>

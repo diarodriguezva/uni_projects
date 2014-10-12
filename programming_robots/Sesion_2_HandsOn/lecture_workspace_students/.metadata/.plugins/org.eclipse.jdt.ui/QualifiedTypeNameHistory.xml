@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.IMotionContainer"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.JointImpedanceControlMode"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.CartDOF"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Tool"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.conditionModel.JointTorqueCondition"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.World"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="data.FileLogger.Fields"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.deviceModel.JointPosition"/>
+<fullyQualifiedTypeName name="com.kuka.common.ThreadUtil"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.BasicMotions"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.math.Transformation"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.conditionModel.ForceCondition"/>
+<fullyQualifiedTypeName name="data.DataHandler"/>
+<fullyQualifiedTypeName name="robot.RobotController"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.deviceModel.Robot"/>
+</qualifiedTypeNameHistroy>

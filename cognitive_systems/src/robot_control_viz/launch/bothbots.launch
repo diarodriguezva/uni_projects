@@ -1,0 +1,4 @@
+<launch>
+	<node name="gripperbot_control" pkg="robot_control_viz" type="robot_control_viz_node" args="0 gripperbot_control" output="screen" />
+	<node name="cambot_control" pkg="robot_control_viz" type="robot_control_viz_node" args="1 cambot_control" output="screen" />
+</launch>
