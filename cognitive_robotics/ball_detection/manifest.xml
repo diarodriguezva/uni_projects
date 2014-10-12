@@ -1,0 +1,24 @@
+<package>
+  <description brief="ball_detection">
+
+     ball_detection
+
+  </description>
+  <author>Diego</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/ball_detection</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="rosbag"/>
+  <depend package="tf"/>
+  <depend package="image_transport"/>
+  <depend package="std_msgs"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
+  <depend package="dummy_robot_control"/>
+
+
+</package>
+
+

@@ -1,0 +1,19 @@
+<package>
+  <description brief="re_speech_recognition">
+
+     re_speech_recognition
+
+  </description>
+  <author>Alexander Perzylo</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/re_speech_recognition</url>
+  <depend package="rosjava_jni"/>
+
+  <export>
+    <java classpath="${prefix}/bin:${prefix}/lib/jsapi.jar:${prefix}/lib/jsapi-1.0-base.jar:${prefix}/lib/sphinx4.jar:${prefix}/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
+  </export>
+
+</package>
+
+

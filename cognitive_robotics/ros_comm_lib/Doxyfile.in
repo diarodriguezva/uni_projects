@@ -1,0 +1,7 @@
+OUTPUT_DIRECTORY = @PROJECT_BINARY_DIR@/Documentation
+
+STRIP_FROM_PATH = @PROJECT_SOURCE_DIR@/src
+
+INPUT = @PROJECT_SOURCE_DIR@/mainpage.dox @PROJECT_SOURCE_DIR@/include/ros_comm_lib @PROJECT_SOURCE_DIR@/include/ros_comm_lib/util @PROJECT_SOURCE_DIR@/src @PROJECT_SOURCE_DIR@/src/util
+
+

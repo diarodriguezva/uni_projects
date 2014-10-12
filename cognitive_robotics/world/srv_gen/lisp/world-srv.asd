@@ -1,0 +1,21 @@
+
+(cl:in-package :asdf)
+
+(defsystem "world-srv"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :components ((:file "_package")
+    (:file "inspect_objects" :depends-on ("_package_inspect_objects"))
+    (:file "_package_inspect_objects" :depends-on ("_package"))
+    (:file "found_objects" :depends-on ("_package_found_objects"))
+    (:file "_package_found_objects" :depends-on ("_package"))
+    (:file "is_cam_moving_service" :depends-on ("_package_is_cam_moving_service"))
+    (:file "_package_is_cam_moving_service" :depends-on ("_package"))
+    (:file "check_goal_positions" :depends-on ("_package_check_goal_positions"))
+    (:file "_package_check_goal_positions" :depends-on ("_package"))
+    (:file "is_cam_moving" :depends-on ("_package_is_cam_moving"))
+    (:file "_package_is_cam_moving" :depends-on ("_package"))
+    (:file "detect_objects" :depends-on ("_package_detect_objects"))
+    (:file "_package_detect_objects" :depends-on ("_package"))
+    (:file "check_goal_position" :depends-on ("_package_check_goal_position"))
+    (:file "_package_check_goal_position" :depends-on ("_package"))
+  ))

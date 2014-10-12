@@ -1,0 +1,4 @@
+string jsgfGrammar  # string containing a JSGF grammar
+---
+bool success        # success of request
+string name         # name that was given to grammar

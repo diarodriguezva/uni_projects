@@ -1,0 +1,10 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for CogSys
+ */
+
+grammar cogsys;
+
+public <greeting> = Pick up the (yellow | green) object;
+

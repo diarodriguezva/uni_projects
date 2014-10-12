@@ -1,0 +1,32 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/Pose.proto";
+
+message SetJointsTaskRequest {
+
+    message JointConfiguration {
+
+        repeated float q = 1;
+
+    }
+
+    required JointConfiguration configuration = 1;
+
+    optional float speed = 2 [default = 1.0];
+
+    optional float acceleration = 3 [default = 1.0];
+
+}
+
+message SetJointsTaskResponse {
+
+    enum Status {
+        GOALREACHED = 1;
+        ERROR = 2;
+    }
+
+    required Status status = 1;
+
+    required Pose pose = 2;
+
+}

@@ -1,0 +1,3 @@
+int32 DISPLAY = 10001
+int32 SPEECH  = 10002
+

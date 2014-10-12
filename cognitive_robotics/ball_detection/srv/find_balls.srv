@@ -1,0 +1,4 @@
+---
+int32[3] x
+int32[3] y
+string[3] name

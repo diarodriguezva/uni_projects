@@ -1,0 +1,22 @@
+<package>
+  <description brief="demo_cogsys_java">
+
+     demo_cogsys_java
+
+  </description>
+  <author>CogSys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/demo_cogsys_java</url>
+  <depend package="rosjava_jni"/>
+  <depend package="robot_control"/>
+  <depend package="gripper_control"/>
+  <depend package="camera"/>
+  <depend package="object_detector"/>
+  <depend package="sensor_msgs"/>
+  <depend package="re_speech_recognition"/>
+  <depend package="re_tts"/>
+
+</package>
+
+

@@ -1,0 +1,6 @@
+#ProjectorCommand
+int32 ADD_OBJECT 	= 12001
+int32 REMOVE_OBJECT 	= 12002
+int32 REMOVE_ALL_OBJECT = 12003
+
+

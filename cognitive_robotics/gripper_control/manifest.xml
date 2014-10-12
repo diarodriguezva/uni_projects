@@ -1,0 +1,16 @@
+<package>
+  <description brief="gripper_control">
+
+     gripper_control
+
+  </description>
+  <author>CogSys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/gripper_control</url>
+  <depend package="rospy"/>
+  <rosdep name="python-zmq"/>
+
+</package>
+
+

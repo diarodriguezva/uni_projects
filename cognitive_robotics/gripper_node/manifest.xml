@@ -1,0 +1,18 @@
+<package>
+  <description brief="gripper_node">
+
+     gripper_node
+
+  </description>
+  <author>WK.ROS</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/gripper_node</url>
+  <depend package="dummy_robot_control"/>
+  <depend package="world"/>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+</package>
+
+

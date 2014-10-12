@@ -1,0 +1,18 @@
+<package>
+  <description brief="visual_servoing">
+
+     visual_servoing
+
+  </description>
+  <author>cogsys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/visual_servoing</url>
+  <depend package="roslib"/>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="ros_comm_lib"/>
+  <depend package="robot_control"/>
+</package>
+
+

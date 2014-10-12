@@ -1,0 +1,22 @@
+<package>
+  <description brief="demo_cogsys_cpp">
+
+     demo_cogsys_cpp
+
+  </description>
+  <author>nair</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/demo_cogsys_cpp</url>
+  <depend package="roscpp"/>
+  <depend package="ros_comm_lib"/>
+  <depend package="robot_control"/>
+  <depend package="gripper_control"/>
+  <depend package="camera"/>
+  <depend package="object_detector"/>
+  <depend package="sensor_msgs"/>
+  <depend package="re_speech_recognition"/>
+  <depend package="re_tts"/>
+</package>
+
+

@@ -1,0 +1,61 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/MoveTask.proto";
+import public "cf/r0/proto/GetPositionTask.proto";
+import public "cf/r0/proto/GetConfigurationTask.proto";
+import public "cf/r0/proto/SetConfigurationTask.proto";
+import public "cf/r0/proto/SetJointsTask.proto";
+import public "cf/r0/proto/EnableTorqueTask.proto";
+
+
+message RobotTaskRequest {
+
+    enum Type {
+        MOVE = 1;
+        GETPOSITION = 2;
+        GETCONFIGURATION = 3;
+        SETCONFIGURATION = 4;
+        SETJOINTS = 5;
+        ENABLETORQUE = 6;
+        EXTENSION = 7;
+    }
+
+    required Type type = 1;
+
+    required uint32 sequence_number = 2;
+
+    optional MoveTaskRequest move_task = 3;
+
+    optional GetPositionTaskRequest position_task = 4;
+
+    optional GetConfigurationTaskRequest get_config_task = 5;
+
+    optional SetConfigurationTaskRequest set_config_task = 6;
+
+    optional SetJointsTaskRequest set_joints_task = 7;
+
+    optional EnableTorqueTaskRequest enable_torque_task = 8;
+
+    extensions 20 to max;
+}
+
+message RobotTaskResponse {
+
+    required RobotTaskRequest.Type type = 1;
+
+    required uint32 sequence_number = 2;
+
+    optional MoveTaskResponse move_task = 3;
+
+    optional GetPositionTaskResponse position_task = 4;
+
+    optional GetConfigurationTaskResponse get_config_task = 5;
+
+    optional SetConfigurationTaskResponse set_config_task = 6;
+
+    optional SetJointsTaskResponse set_joints_task = 7;
+
+    optional EnableTorqueTaskResponse enable_torque_task = 8;
+
+    extensions 20 to max;
+}

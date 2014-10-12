@@ -1,0 +1,9 @@
+string text   # text for TTS
+float32 vol   # volume of voice in range ]0.0;1.0]
+float32 rate  # rate of voice (in words per minute) in range [9.0;999.0],
+              # a rate of 150 wpm is a good starting point
+---
+bool success  # success of request
+time time     # starting time of speech output
+duration dur  # duration of speech
+

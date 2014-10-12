@@ -1,0 +1,13 @@
+package cf.r0.proto;
+
+message Quaternion {
+
+    required double x = 1;
+
+    required double y = 2;
+
+    required double z = 3;
+
+    required double w = 4;
+
+}

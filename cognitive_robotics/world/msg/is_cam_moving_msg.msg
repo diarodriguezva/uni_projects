@@ -1,0 +1,1 @@
+bool cam_state

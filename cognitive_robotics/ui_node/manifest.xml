@@ -1,0 +1,19 @@
+<package>
+  <description brief="ui_node">
+
+     ui_node
+
+  </description>
+  <author>student</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/ui_node</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="ai_node"/> 
+  <rosdep name="flask"/>
+
+</package>
+
+

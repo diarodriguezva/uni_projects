@@ -1,0 +1,6 @@
+---
+int32[3] x_min
+int32[3] x_max
+int32[3] y_min
+int32[3] y_max
+string[3] color

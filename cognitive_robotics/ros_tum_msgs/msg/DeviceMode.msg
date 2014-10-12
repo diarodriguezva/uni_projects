@@ -1,0 +1,8 @@
+#DeviceMode {DISABLED, STATIONARY, MOVING, OPEN, CLOSE}
+
+int32 DISABLED 	 = 0
+int32 STATIONARY = 1
+int32 MOVING 	 = 2
+int32 OPEN	 = 3
+int32 CLOSE	 = 4
+

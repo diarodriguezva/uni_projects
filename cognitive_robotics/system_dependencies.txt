@@ -1,0 +1,1 @@
+sudo apt-get install libopencv-dev libopencv-core-dev libgsl0-dev libeigen3-dev openjdk-6-jdk doxygen libqt4-core libqt4-dev libzmq-dev python-zmq

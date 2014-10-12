@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <!--
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">cambot</h3>
+            </div>
+            <div class="panel-body">
+            Panel body stuff
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">gripperbot</h3>
+            </div>
+            <div class="panel-body">
+                <label class="control-label">Open / Close Gripper:</label>
+                <div class="btn-group btn-group-justified">
+                  <a href="#" id="gripper-open" class="btn btn-primary gripper-grasp">Open</a>
+                  <a href="#" id="gripper-close" class="btn btn-primary gripper-grasp">Close</a>
+                </div>
+
+                <br><label class="control-label">Move Gripperbot to object:</label>
+                <div class="btn-group btn-group-justified">
+                  <a href="#" id="red" class="btn btn-primary gripper-move">Red</a>
+                  <a href="#" id="green" class="btn btn-primary gripper-move">Gre</a>
+                  <a href="#" id="yellow" class="btn btn-primary gripper-move">Yel</a>
+                </div>
+                
+                <br><div class="form-group">
+                  <label class="control-label">Move Gripperbot to coordinates:</label>
+                  <div class="input-group">
+                    <input id="gripper-coordinates-input" type="text" class="form-control" value = "0.0 0.0 0.0" placeholder="0.0 0.0 0.0" data-toggle="tooltip" title="" data-original-title="Separate x, y and z with spaces.">
+                    
+                    <span class="input-group-btn">
+                      <button id="refresh-coordinates" class="btn btn-primary" type="button">
+                      <span class="glyphicon glyphicon-refresh">
+                      </span></button>
+                    </span>
+                    
+                    <span class="input-group-btn">
+                      <button id="gripper-coordinates" class="btn btn-primary" type="button">Move</button>
+                    </span>
+                  </div>
+                  
+                  
+                </div>
+                <button id="enable-input" type="button" class="btn btn-primary btn-xs" data-toggle="button">Enable keyboard input</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">input.xml</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="input-xml">Input robot commands in XML</label>
+                    <textarea id="textarea-xml" class="form-control" rows="6"></textarea>
+                </div>
+                <button id="submit-xml" type="button" class="btn btn-primary btn-lg">Execute</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- START SECOND ROW -->
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Found objects</h3>
+            </div>
+            <div class="panel-body">
+            <ul class="list-group" id="objects-field">
+              <li class="list-group-item list-group-item-info">Connecting...</li>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">/rosout</h3>
+            </div>
+            <div class="panel-body" id="rosout-items" style="max-height: 320px; overflow-y:scroll;">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

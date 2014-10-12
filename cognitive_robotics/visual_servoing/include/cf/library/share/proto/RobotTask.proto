@@ -1,0 +1,50 @@
+package cf.r0.proto;
+
+import "MoveTask.proto";
+import "GetPositionTask.proto";
+import "GetConfigurationTask.proto";
+import "SetConfigurationTask.proto";
+import "SetJointsTask.proto";
+
+
+message RobotTaskRequest {
+
+    enum Type {
+        MOVE = 1;
+        GETPOSITION = 2;
+        GETCONFIGURATION = 3;
+        SETCONFIGURATION = 4;
+        SETJOINTS = 5;
+    }
+
+    required Type type = 1;
+
+    required uint32 sequence_number = 2;
+
+    optional MoveTaskRequest move_task = 3;
+
+    optional GetPositionTaskRequest position_task = 4;
+
+    optional GetConfigurationTaskRequest get_config_task = 5;
+
+    optional SetConfigurationTaskRequest set_config_task = 6;
+
+    optional SetJointsTaskRequest set_joints_task = 7;
+}
+
+message RobotTaskResponse {
+
+    required RobotTaskRequest.Type type = 1;
+
+    required uint32 sequence_number = 2;
+
+    optional MoveTaskResponse move_task = 3;
+
+    optional GetPositionTaskResponse position_task = 4;
+
+    optional GetConfigurationTaskResponse get_config_task = 5;
+
+    optional SetConfigurationTaskResponse set_config_task = 6;
+
+    optional SetJointsTaskResponse set_joints_task = 7;
+}

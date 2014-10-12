@@ -1,0 +1,13 @@
+package cf.r0.proto;
+
+message EmergencyStop {
+
+    enum Type {
+        STOP = 1;
+        RESUME = 2;
+        ABORT = 3;
+    }
+
+    required Type type = 1;
+
+}

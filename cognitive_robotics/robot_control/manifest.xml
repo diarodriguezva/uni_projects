@@ -1,0 +1,15 @@
+<package>
+  <description brief="robot_control">
+
+     robot_control
+
+  </description>
+  <author>CogSys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/robot_control</url>
+  <depend package="roscpp"/>
+
+</package>
+
+

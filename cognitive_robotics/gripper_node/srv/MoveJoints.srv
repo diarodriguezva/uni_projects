@@ -1,0 +1,6 @@
+float32 q0       # joint0
+float32 q1       # joint1
+float32 q2       # joint2
+---
+bool success     # success of request
+

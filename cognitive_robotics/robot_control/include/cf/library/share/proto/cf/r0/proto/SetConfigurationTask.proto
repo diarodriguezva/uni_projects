@@ -1,0 +1,13 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/ToolConfiguration.proto";
+
+message SetConfigurationTaskRequest {
+
+    repeated ToolConfiguration tools = 1;
+
+}
+
+message SetConfigurationTaskResponse {
+
+}

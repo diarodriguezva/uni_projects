@@ -1,0 +1,24 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/Pose.proto";
+
+message GetPositionTaskRequest {
+
+    required string effector = 1;
+
+}
+
+message GetPositionTaskResponse {
+
+    enum Status {
+        SUCCESS = 1;
+        EFFECTORNOTCONFIGURED = 2;
+    }
+
+    required Status status = 1;
+
+    required string effector = 2;
+
+    optional Pose pose = 3;
+
+}

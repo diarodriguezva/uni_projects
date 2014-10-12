@@ -1,0 +1,12 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/Point.proto";
+import public "cf/r0/proto/Quaternion.proto";
+
+message Pose {
+
+    required Point position = 1;
+
+    required Quaternion rotation = 2;
+
+}

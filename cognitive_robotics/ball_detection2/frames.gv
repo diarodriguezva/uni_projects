@@ -1,0 +1,15 @@
+digraph G {
+"/tf_yellow_start" -> "/cam_effector_2"[label="Broadcaster: /ball_detection2\nAverage rate: 6.406 Hz\nMost recent transform: -242.838 sec old \nBuffer length: 4.683 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1406650268.290"[ shape=plaintext ] ;
+ }->"/tf_green_start";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1406650268.290"[ shape=plaintext ] ;
+ }->"/tf_red_start";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1406650268.290"[ shape=plaintext ] ;
+ }->"/tf_yellow_start";
+}

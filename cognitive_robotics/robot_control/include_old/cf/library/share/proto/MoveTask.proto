@@ -1,0 +1,37 @@
+package cf.r0.proto;
+
+import "Pose.proto";
+
+message MoveTaskRequest {
+
+    enum Mode {
+        CONFIGURATIONSPACE = 1;
+        OPERATIONALSPACE = 2;
+    }
+
+    required Pose pose = 1;
+
+    required string effector = 2;
+
+    optional Mode mode = 3 [default = CONFIGURATIONSPACE];
+
+    optional float speed = 4 [default = 1.0];
+
+    optional float acceleration = 5 [default = 1.0];
+
+}
+
+message MoveTaskResponse {
+
+    enum Status {
+        GOALREACHED = 1;
+        INVERSEPOSITIONFAILED = 2;
+        ERROR = 3;
+        EFFECTORNOTCONFIGURED = 4;
+    }
+
+    required Status status = 1;
+
+    optional Pose pose = 2;
+
+}

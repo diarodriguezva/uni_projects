@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<instructions>
+<move>
+		<obj>
+			<type shape="sphere" color="green"/>
+		</obj>
+		<tolocation>
+			<type shape="bin" color="yellow"/>
+		</tolocation>
+	</move>
+</instructions>
+
+	<!--
+	<sort>
+		<obj>
+			<type shape="sphere" color="red"/>
+			<type shape="sphere" color="blue"/>
+			<type shape="sphere" color="green"/>
+		</obj>
+		<order>
+			<color>red</color>
+			<color>green</color>
+			<color>blue</color>
+		</order>
+	</sort>
+
+	<move>
+		<obj>
+			<type shape="sphere" color="red"/>
+			<type shape="cube" color="yellow"/>
+			<type shape="ball" color="white"/>
+		</obj>
+		<tolocation>
+			<type shape="bin" color="blue"/>
+		</tolocation>
+	</move>
+
+	-->

@@ -1,0 +1,13 @@
+<package>
+  <description brief="ai_node">
+
+     ai_node
+
+  </description>
+  <author>student</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/ai_node</url>
+  <depend package="rospy"/>
+
+</package>

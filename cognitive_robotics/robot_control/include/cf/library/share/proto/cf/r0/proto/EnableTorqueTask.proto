@@ -1,0 +1,13 @@
+package cf.r0.proto;
+
+message EnableTorqueTaskRequest {
+
+    required bool enabled = 1;
+
+}
+
+message EnableTorqueTaskResponse {
+
+    required bool success = 1;
+
+}

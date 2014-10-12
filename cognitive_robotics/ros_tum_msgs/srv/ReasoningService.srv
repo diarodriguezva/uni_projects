@@ -1,0 +1,5 @@
+string predicate
+string subject
+string object
+---
+string response

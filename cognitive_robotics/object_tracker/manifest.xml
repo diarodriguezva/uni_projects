@@ -1,0 +1,18 @@
+<package>
+  <description brief="object_tracker">
+
+     object_tracker
+
+  </description>
+  <author>cogsys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/object_tracker</url>
+  <depend package="ros_comm_lib"/>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+
+</package>
+
+

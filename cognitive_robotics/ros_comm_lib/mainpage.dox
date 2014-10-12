@@ -1,0 +1,52 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b ros_comm_lib is library in the form of a ROS package. It provides the functionality to the user to easily create publishers and subscribers on the customized messages defined in the ros_tum_msgs package. The user can start a ROS publisher/subscriber by just initiating a class and does not need to write any ROS code. The library allows the user to easily exchange data (Actors, Actions, Device Status, Task Status) between different ROS modules with minimal coding effort. It also provides multiple utility functions to easily access and specific parts of the data from the ROS messages.
+
+<!-- 
+Provide an overview of your package.
+-->
+
+\section tutorial Tutorial
+The modules has been implemented and integrated into a ROS Package (ros_comm_lib).
+
+\subsection dep Dependencies
+It has the following dependencies (listed in the manifest and external dependencies in the cmake)
+
+\subsection rosdep ROS Related Dependencies
+- std_msgs
+- rospy
+- roscpp
+- ros_tum_msgs (ROS messages packages for the smerobotics scenario)
+
+\subsection extdep External Dependencies
+- QT
+- Eigen3
+- Pthread
+
+\subsection osdep Operating System
+- Linux (Preferably Ubuntu 11.10 32 Bits)
+
+\subsection comp Compiling
+- Download the ROS package and the dependencies
+- Perform a rosmake in the top level directory (containing the main CMAKE file)
+- The library is generated in the "lib" folder and the build data is logged in the "build" folder
+
+
+
+\section codeapi Code API
+
+<!--
+Provide links to specific auto-generated API documentation within your
+package that is of particular interest to a reader. Doxygen will
+document pretty much every part of your code, so do your best here to
+point the reader to the actual API.
+
+If your codebase is fairly large or has different sets of APIs, you
+should use the doxygen 'group' tag to keep these APIs together. For
+example, the roscpp documentation has 'libros' group.
+-->
+
+
+*/

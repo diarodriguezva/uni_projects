@@ -1,0 +1,15 @@
+<package>
+  <description brief="dummy_robot_control">
+
+     dummy_robot_control
+
+  </description>
+  <author>CogSys</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/dummy_robot_control</url>
+  <depend package="roscpp"/>
+
+</package>
+
+

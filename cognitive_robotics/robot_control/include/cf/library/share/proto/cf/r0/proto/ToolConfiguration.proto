@@ -1,0 +1,11 @@
+package cf.r0.proto;
+
+import public "cf/r0/proto/Pose.proto";
+
+message ToolConfiguration {
+
+    required string name = 1;
+
+    required Pose pose = 2;
+
+}

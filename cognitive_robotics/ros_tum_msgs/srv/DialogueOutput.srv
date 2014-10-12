@@ -1,0 +1,4 @@
+string message
+int32 modality
+---
+int32 response

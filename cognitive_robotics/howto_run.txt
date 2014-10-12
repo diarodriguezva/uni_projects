@@ -1,0 +1,23 @@
+In multiple terminal windows run:
+
+Terminal1:
+roslaunch robot_control gripperbot.launch
+ OR
+roslaunch dummy_robot_control gripperbot.launch
+
+Terminal2:
+roslaunch gripper_control gripper.launch
+
+Terminal3:
+roscd camera/bin
+./camera
+
+Terminal4:
+roscd object_detector/bin
+./objdetect
+
+Terminal5:
+rosrun re_speech_recognition run
+
+Terminal6:
+rosrun demo_cogsys_java demo
